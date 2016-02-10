@@ -11,7 +11,7 @@ if($_POST){
   if($id=$_POST['id']);else{$x['maxid']++;$id=$x['maxid'];}#new id
   unset($_POST['id']);
   $_POST['url']=$id.'.'.trim(preg_replace('~-{2,}~','-',preg_replace("~[^a-z0-9]~i",'-',$_POST['title'])),'-');
-  $x['post'][$id]=$_POST;
+  $x['post'][$id]=array_filter($_POST);
   fpc($f,$x);
   r302('?id='.$id.'#saved');
 }
@@ -33,6 +33,7 @@ foreach($x['post'] as $k=>$t){$options.="<option value='$k'>".$t['title']."</opt
 Title : <input name=title value='<?=$title?>'><?=($url)?" - url : <a target=1 href='/$url'>$url</a> ":''?>
 Contents : <?=($error)?"/!\ $error /!\\":''?><textarea id=ckeditor name=content><?=$content?></textarea>
 background : <input name=bg value='<?=$bg?>'>
+categories : <input name=cat value='<?=$cat?>'>
 <br><input type=submit value=go accesskey=s style='width:99%;'>
 </form>
 List : <a href='?'>Create new post</a> - <?=implode(' - ',$list)?> - <select onchange="location.href='?id='+this.value" class=select2><option>Select or create new post</option><?=$options?></select></div></div>
