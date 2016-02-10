@@ -1,0 +1,8 @@
+#SetEnv ip "127.0.0.1"
+#SetEnv server "localhost"
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule (.*) /?e=404 [QSA,L]
+
+ErrorDocument 404 /?e=404

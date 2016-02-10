@@ -1,0 +1,4 @@
+﻿*.jpg
+*.7z
+tmp/sqlcache/*
+tmp/anot/*

@@ -1,0 +1,15 @@
+#SetEnv ip "127.0.0.1"
+#SetEnv server "localhost"
+<Files ~ "\.inc\.php|\.c\.php$">
+Order allow,deny
+Deny from all
+</Files>
+
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule (.*) /?e=404 [QSA,L]
+
+#RewriteRule .? index.php?frontcontroller=1 [QSA,L]
+
+ErrorDocument 404 /?e=404

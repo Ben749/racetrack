@@ -1,0 +1,58 @@
+html{font:22px/22px  Calibri,Segoe UI,Trebuchet MS,Verdana;}
+/*generic:1rem:22px*/
+@media screen and (max-width:1669px){html{font:21px/21px Calibri;}}
+@media screen and (max-width:1600px){html{font:20px/20px Calibri;}}
+@media screen and (max-width:1500px){html{font:18px/18px Calibri;}}
+@media screen and (max-width:1400px){html{font:17px/17px Calibri;}}
+@media screen and (max-width:1300px){html{font:16px/16px Calibri;}}
+@media screen and (max-width:1200px){html{font:15px/15px Calibri;}}
+@media screen and (max-width:1100px){html{font:14px/14px Calibri;}}
+@media screen and (max-width:1000px){html{font:13px/13px Calibri;}}
+@media screen and (max-width:900px){html{font:12px/12px Calibri;}}
+@media screen and (max-width:800px){html{font:11px/11px Calibri;}}
+
+
+*{font:1rem Calibri,Segoe UI,Trebuchet MS,Verdana;}
+pre{width:40rem;margin:10px auto;padding:1rem;border:1px solid #DDD;-moz-border-radius:1rem;-webkit-border-radius:1rem;border-radius:1rem;background:rgba(255,255,255,0.8);white-space:pre-wrap;}
+.cke_editable img,pre img{max-width:40rem;}
+.cke_editable{background:url('//x24.fr/bg.snow.charvin.jpg') no-repeat fixed center top / cover rgba(255,255,255,0.5)/*contain*/;white-space:pre-wrap;}
+
+body{background:url('//x24.fr/bg.snow.charvin.jpg') no-repeat fixed center top / cover/*contain*/;}
+
+
+.contactform{margin-top:10rem;margin-bottom:30rem;display:inline-block;}
+.contactform *{}
+
+.error{background:#BBB;border:1px solid #F00;color:#F00;margin:6px 0px;}.ok{border:1px solid #0B0;color:#0B0;margin:6px 0px;}.vbot{vertical-align:bottom}
+
+td{vertical-align:middle}*,input,textarea{}input{width:10rem;}.I194 input{width:10rem;}H5{color:#222;}
+button,input,textarea{-moz-border-radius:7px;-webkit-border-radius:7px;border-radius:7px;padding-left:5px;cursor:pointer;}
+
+button,input,textarea,fieldset{border:1px solid #999;}
+fieldset{-moz-border-radius:1rem;-webkit-border-radius:1rem;border-radius:1rem;-webkit-box-shadow:#333 1px 3px 3px;-moz-box-shadow:#333 1px 3px 3px;box-shadow:#333 1px 3px 3px;	margin:0;padding:5;background:#FFF;}
+
+
+
+#blk{width:31rem;border:0;}b{text-decoration:underline;}#btb{border-top:1px solid #00D;Margin-top:3px;}
+body,form{margin:0;}/*body{}*/
+
+
+.submit{color:#000;border:1px solid #e65d03;
+	background:#fab903;background:-moz-linear-gradient(top, #FFF 0%, #fab903 100%);/*FF*/background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#FFF), color-stop(100%,#fab903));/*chrome*/background:-webkit-linear-gradient(top, #FFF 0%,#fab903 100%);/*webkit*/background: -o-linear-gradient(top, #FFF 0%,#fab903 100%);/*opera*/
+	background: -ms-linear-gradient(top, #FFF 0%,#fab903 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #FFF 0%,#fab903 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFFFFF', endColorstr='#fab903',GradientType=0 ); /* IE6-8 */
+}
+
+.submit:hover,.submit-h{color:#FFF;border:1px solid #19a2fc;
+background:-moz-linear-gradient(top,#FFF,#0443b9 49%,#0558e9 50%,#0548fc);background:-webkit-linear-gradient(top,#FFF,#0443b9 49%,#0558e9 50%,#0548fc);background:-webkit-gradient(top,#FFF,#0443b9 49%,#0558e9 50%,#0548fc);background:-ms-linear-gradient(top,#FFF,#0443b9 49%,#0558e9 50%,#0548fc);background:-o-linear-gradient(top,#FFF,#0443b9 49%,#0558e9 50%,#0548fc);background:linear-gradient(top,#FFF,#0443b9 49%,#0558e9 50%,#0548fc);
+filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFF', endColorstr='#0548fc',GradientType=0);
+}
+
+s{display:none}
+#submit{width:30rem;}
+#mess{width:30rem;height:4rem;}
+td,input,textarea{}
+input,textarea{color:#00D}
+
+.w50{background:rgba(255,255,255,0.5);}

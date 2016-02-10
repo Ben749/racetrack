@@ -1,0 +1,1 @@
+<?R302('/#accessing rt main folder: not that good : noindex');?>
