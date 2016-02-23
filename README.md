@@ -2,7 +2,7 @@
             
 Cookbook / installation :
 - cd /home;git clone https://github.com/Ben749/racetrack.git;cd racetrack;git branch yourCustomBranchName;
-git fetch origin;git merge master -X ours;#pulling newer code ( keeping yours )
+git fetch origin;git merge origin/master -X ours;#pulling newer code ( keeping your code upon each pull )
 
 - replace /home/racetrack/ by your install path within each file if required
 - add 127.0.0.1 racetrack.dev host.2 to /WINDOWS/system32/drivers/etc/hosts
