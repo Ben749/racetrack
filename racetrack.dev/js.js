@@ -17,7 +17,8 @@ function submitChanged(f,ignores){//only sends modified data, disables input upo
   return true;
 }
 
-function verif(){RestoreInputSelect();err='';//x=;y=;z=;//alert(x.value+""+y.value+""+err);
+function verif(){
+  RestoreInputSelect();err='';//x=;y=;z=;//alert(x.value+""+y.value+""+err);
   if($('message').value.length<10){err=1;RedAlert('message');}
   if($('email').value.length<10){err=1;RedAlert('email');}
   if(testnom($('nom').value)){err=1;RedAlert('nom');}

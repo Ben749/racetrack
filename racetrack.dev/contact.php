@@ -42,7 +42,7 @@ switch($k){default:$but="Obtenir un complément d'information";break;}}
 $but=stripslashes($but);
 if($_GET['b2']){$but=str_replace('.',' ',$_GET['b2']);$b1=str_replace('.',' ',$_GET['b1']);}
 if(is_array($t2))$t2='';#
-?><html><head><title><?=$subject?></title><link type="text/css" rel="stylesheet" href='./style.css'><script src='./js.js'></script></head>
+?><html><head><title><?=$subject?></title><link type="text/css" rel="stylesheet" href='/style.css'><script src='/js.js'></script></head>
 <body><center><?noscript();?>
 
 <form action='' method="post" onsubmit="console.log(verif());return false;return verif();return false;" class=contactform>
