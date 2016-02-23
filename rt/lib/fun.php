@@ -1470,3 +1470,9 @@ function isAnsiWithAccents($x){
 function Ansi2UTF(&$x){if(isAnsiWithAccents($x))$x=utf8_encode($x);return $x;}
 function UTF2Ansi(&$x){if(isUTF($x))$x=utf8_decode($x);return $x;}
 
+function mysqlesc(&$x){#
+  if(is_array($x))return array_map(__METHOD__,$x);
+  if(!empty($x) && is_string($x))$x=str_replace(array('\\', "\0", "\n", "\r", "'", '"', "\x1a"), array('\\\\', '\\0', '\\n', '\\r', "\\'", '\\"', '\\Z'),$x);
+  return $x;
+}
+

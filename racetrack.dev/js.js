@@ -1,3 +1,22 @@
+function tolow(x){type=typeof(x);if(!x || type!='string'){return x;}return x.toLowerCase();}tolower=tolow;
+function submitChanged(f,ignores){//only sends modified data, disables input upon submit
+  ignores=ignores||null;
+  if(f && f.elements){
+    for(var i=f.elements.length;i--;){
+      var o=f.elements[i];
+      //console.log(o,tolow(o.tagName),o.type,o.value,o.defaultValue);
+      if(tolow(o.tagName)!="input" && tolow(o.tagName)!="textarea")continue;//only inputs will be checked
+      if(o.type=='checkbox' && o.checked==o.defaultChecked){o.disabled="disabled";continue;}//state not changed
+      if(ignores && ignores.indexOf(o.type)>-1)continue;//ignores those ones
+      if(o.className!='k' && o.value==o.defaultValue && (!o.disabled || tolow(o.disabled)=="disabled")){
+        if(o.disabled!=true)o.disabled="disabled";//sinon désactive ces dernières
+      }
+    }
+  }
+  //console.log(f,type);return false;
+  return true;
+}
+
 function verif(){RestoreInputSelect();err='';//x=;y=;z=;//alert(x.value+""+y.value+""+err);
   if($('message').value.length<10){err=1;RedAlert('message');}
   if($('email').value.length<10){err=1;RedAlert('email');}
@@ -124,8 +143,7 @@ function Propaganda(liste){//return"";
   }
 }
 
-function tolow(x){return tolower(x);}
-function tolower(x){x=x.toLowerCase();return x;}
+
 
 function REG(x,y){
   x=tolow(x);y=tolow(y);
