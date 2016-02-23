@@ -50,9 +50,41 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFF', endColor
 }
 
 s{display:none}
+a:hover{color:#F00;}
 #submit{width:30rem;}
 #mess{width:30rem;height:4rem;}
 td,input,textarea{}
 input,textarea{color:#00D}
 
 .w50{background:rgba(255,255,255,0.5);}
+
+#headermenu,#footermenu{display:block;width:500px;border-radius:1rem;text-align:center;margin:auto}
+#headermenu a,#footermenu a{text-decoration:none}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

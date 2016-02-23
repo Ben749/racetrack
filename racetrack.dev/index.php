@@ -31,25 +31,39 @@ Rem($_ENV['titre'],$def['titre']);
 Rem($_ENV['desc'],$def['desc']);
 Rem($_ENV['keyw'],$def['keyw']);
 
-$x=glob('*.php');
+$headermenu=$footermenu='';
+$headerLinks=$footerLinks=[];
+
 $f->gt('timer');
+
+/* artices */
+$f='adm/editor.json';
+if(is_file($f)){
+  $x=FGC($f);$z=[];
+  foreach($x['post'] as $k=>$t){#
+    if(strpos($t['cat'],'header')!==false){$headerLinks[$t['title']]=$t['url'];continue;}
+    if(strpos($t['cat'],'footer')!==false){$footerLinks[$t['title']]=$t['url'];continue;}
+    $a='';
+    if($k===3)$a=' accesskey=a';elseif($k===$x['maxid'])$a=' accesskey=z';
+    $z[]="<a href='$t[url]'".$a.">$t[title]</a>";
+  }
+  
+  foreach($headerLinks as $k=>$v)$headermenu.="<a href='$v'>$k</a> - ";
+  foreach($footerLinks as $k=>$v)$footermenu.="<a href='$v'>$k</a> - ";
+  $articlesList="\nArticles : ".implode(' - ',$z);
+}
 
 require_once'header.c.php';
 ?><div id=top><?#="bg : ".$bg.$bgs?></div><div id=bot></div>
 <pre>Racetrack demo home : directory contents : <?#='CWD : '.CWD?>
 <?
-foreach($x as $v){if(strpos($v,'.c.php')!==false or strpos($v,'.inc.php')!==false || strpos($v,'todo')!==false || strpos($v,'router')!==false)continue;echo"\n - <a href='$v'>$v</a>";}
-
-$f='adm/editor.json';
-if(is_file($f)){
-  $x=FGC($f);$z=[];
-  foreach($x['post'] as $k=>$t){#
-    $a='';
-    if($k===1)$a=' accesskey=a';elseif($k===$x['maxid'])$a=' accesskey=z';
-    $z[]="<a href='$t[url]'".$a.">$t[title]</a>";
-  }
-  echo"\nArticles : ".implode(' - ',$z);
+$x=glob('*.php');
+foreach($x as $v){
+  if(strpos($v,'.c.php')!==false or strpos($v,'.inc.php')!==false || strpos($v,'todo')!==false || strpos($v,'router')!==false)continue;
+  echo"\n - <a href='$v'>".str_replace('.php','',$v)."</a>";
 }
+
+echo $articlesList;
 ?>
 </pre>
-</body></html>
+<?require_once'footer.c.php';?>
