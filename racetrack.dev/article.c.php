@@ -37,7 +37,9 @@ if($t=$x['post'][$id]){
   $url='/';$title='home';
   if(isset($x['post'][$next])){$url=$x['post'][$next]['url'];$title=$x['post'][$next]['title'];}
   echo"<a href='".$url."' accesskey=z>".$title."</a> - ";
-  echo $t['content'].'</pre></body></html>';
+  echo $t['content'].'</pre>';
+  
+  require_once'footer.c.php';
   die;
 }
 else{

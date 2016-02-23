@@ -47,7 +47,7 @@ if(is_file($f)){
     if($k===3)$a=' accesskey=a';elseif($k===$x['maxid'])$a=' accesskey=z';
     $z[]="<a href='$t[url]'".$a.">$t[title]</a>";
   }
-  
+/*todo : header menu : home,generate those links as editing += contact.php */  
   foreach($headerLinks as $k=>$v)$headermenu.="<a href='$v'>$k</a> - ";
   foreach($footerLinks as $k=>$v)$footermenu.="<a href='$v'>$k</a> - ";
   $articlesList="\nArticles : ".implode(' - ',$z);

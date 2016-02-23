@@ -5,4 +5,4 @@
 <link href="/?css<?#/!c/jquery.bxslider.css?>" rel="stylesheet">
 <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Raleway'>
 </head><body>
-<div id=headermenu class=w50><?=$headermenu?></div>
+<div id=headermenu class=w50><a href='/'>Home</a> - <?=$headermenu?></div>
