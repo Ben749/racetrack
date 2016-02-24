@@ -13,6 +13,8 @@ Cookbook / installation :
 - add 127.0.0.1 racetrack.dev host.2 to /WINDOWS/system32/drivers/etc/hosts
 - create apache vhost for racetrack.dev && host.2 >>> described in vhosts.conf
 
+Basic user && password : user pass
+
 Three Methods for Prepending Racetrack :
 - add to php.ini : auto_prepend_file /home/racetrack/rt/prepend.php
 - FrontController : within racetrack.dev/.htaccess >> uncomment : #RewriteRule .? index.php?frontcontroller=1 [QSA,L]

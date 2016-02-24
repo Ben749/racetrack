@@ -14,7 +14,7 @@ $f->gt();#loads the gettime
  #autoloader fine -> then returns the right functions from global namespace
 #new fun;#ok with autoloader -- fine :)
 
-#supposed "main controller" : any 404 rewriting goes here with RS=404
+#supposed "mvain controller" : any 404 rewriting goes here with RS=404
 if($_GET['e']==404)require_once'router.php';
 #Installation : put in localhost, rename example.inc.php to 127.inc.php ( first digit of localhost )
 #Assume your web root is : C:\!web or change it in this configuration file
@@ -62,6 +62,8 @@ foreach($x as $v){
   if(strpos($v,'.c.php')!==false or strpos($v,'.inc.php')!==false || strpos($v,'todo')!==false || strpos($v,'router')!==false)continue;
   echo"\n - <a href='$v'>".str_replace('.php','',$v)."</a>";
 }
+echo"\n - <a href='/test/'>Tests ( password protected ) </a>";
+echo"\n - <a href='/adm/'>admin ( password protected ) </a>";
 
 echo $articlesList;
 ?>
