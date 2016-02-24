@@ -1,5 +1,5 @@
 <?
-require_once"../rt/prepend.php";
+#require_once"../../rt/prepend.php";
 
 Rem($_ENV['titre'],$def['titre']);
 Rem($_ENV['desc'],$def['desc']);
