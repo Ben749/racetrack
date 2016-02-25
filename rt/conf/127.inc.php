@@ -13,7 +13,7 @@ if(!function_exists('sys_getloadavg')){function sys_getloadavg(){return Array(1,
 date_default_timezone_set('Europe/Paris');
 
 rem($a['preload'],'0=autoloader.php,1=fun.php,2=debug53.php,3=fundev1.php');#&1=deprecated.php&2=ksv1-div.php&3=ksv1-auto.php&4=crypt.php&5=autor301.php&6=ggtracker.php&7=css.php
-$a['vars']="root=/l/debshared/racetrack&logs/l/debshared/racetrack&l2=/l/debshared/racetrack&obstart=1&cacheinit=0&starter=0&tracker=0";#&rt=/z/rt/&tmp=/z/tmp/
+$a['vars']="root=/l/debshared/racetrack&logs/l/debshared/racetrack&l2=/l/debshared/racetrack&obstart=1&cacheinit=0&starter=0&tracker=0";
 $erlogs='/l/debshared/racetrack/er.logs';
 
 #die(dr.'adm/local.s3db');

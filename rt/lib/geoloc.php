@@ -9,7 +9,7 @@ class geoloc{
   function init(){
       if(!$this->init){
         $this->date=date('Ymd');$this->plusYear=time()+3600*24*356;$this->ip=IP;
-        $this->prefix="/z/tmp/geoloc/";
+        $this->prefix=TMP."/geoloc/";
         $this->f=$this->prefix.'ip.igb';
         $this->ipPerSiteAndDay=$this->prefix.H.$this->date.'.ips.fap';
       }

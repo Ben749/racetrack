@@ -1,4 +1,5 @@
 <?#Per domain config : cumulative
+$sqlconn=['127.0.0.1','root','a'];
 $ga='UA-939676-15';
 $DB='ciel';#DR.'adm/3.s3db';#replace this value now !!
 $def=array('titre'=>'racetrack default title','desc'=>'desc default','keyw'=>'default keywords');

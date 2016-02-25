@@ -20,7 +20,7 @@ function fpc1($x,$data){sanitizefile($x);file_put_contents($x,$data);}
 function igbrz($file){
   $x=fgc1($file);if(!$x)return[];
   if(in_array(substr($x,0,2),['x'.chr(156),'x'.chr(94),'xœ']) && $uncompressed=@gzuncompress($x))$x=$uncompressed;
-  return json_decode($x);#igbinary_unserialize
+  return json_decode($x,1);#igbinary_unserialize
 }
 
 function igbwz($file,$data){
@@ -32,15 +32,43 @@ function igbwz($file,$data){
 #$x=sql6(['cd'=>'/web/sqlcache/','con'=>['127.0.0.1','root','a'],'sql'=>"select * from bo.products where id_subsidiary=312",'iP'=>['invalidation1','products:idsub:312']]);print_r($x);die;
 redef(THRESHOLD,0.001);#ms to declenche cache
 function sql6($p){
+#todo:;mysqli
 //better use disk cache, cuz memory will autoload it when heavily accessed using LFU algorythmn !
-     $cd='/z/tmp/sql/';$x=null;$result=[];extract($p);
+    static $conns;
+     $cd=TMP.'sqlcache/';$x=null;$result=[];extract($p);
+     if($suppr)$pl=$suppr;
+     if($pl){#indexes to remove, according to invalidations
+      #print_r($pl);
+        $mod=0;
+          foreach($pl as $v){
+               $f=$cd.$v.'.inv';
+               if(!is_file($f) || !trim($v))Continue;
+               $x=explode("\n",fgc1($f));
+               foreach($x as &$v2){
+                    if(!is_file($cd.$v2))continue;
+                    $mod++;unlink($cd.$v2);$v2=null;
+               }unset($v2);
+          }
+          
+          if($mod){#suppressions effectives
+            $x=array_filter(array_unique($x));
+            if($x && count($x))fpc1($f,implode("\n",$x));
+            else unlink($f);#ni a plus rien .. 
+         }
+     }
+     
+     if($con)$thiscon=implode(',',$con);
      $s=['allready-unlinked'=>[]];
+     
      if($iP && is_string($iP))$iP=explode(',',$iP);
      if($pl && is_string($pl))$pl=explode(',',$pl);
      
      if(!$FieldIndex)$FieldIndex='id';
      
+     $sql=trim($sql);
      if($sql){
+     
+        if(strtolower(substr($sql,0,4))==='show')$select=1;
         if(stripos($sql,'select')===0)$select=1;
         elseif(stripos($sql,'update')===0){$update=1;$pl[]='update:'.$table;}
         elseif(stripos($sql,'insert')===0)$pl[]='insert:'.$table;
@@ -57,7 +85,10 @@ function sql6($p){
 
         if(is_file($cachepath))return igbrz($cachepath);
 
-        mysql_connect($con[0],$con[1],$con[2]);
+        if(!$conns[$thiscon]){
+          mysql_connect($con[0],$con[1],$con[2]);#errors ?
+          $conns[$thiscon]=1;
+        }
        
          if($update){
             $sql.=" and(SELECT @uids:=CONCAT_WS(',',".$FieldIndex.",@uids))";#between where and limit
@@ -66,13 +97,30 @@ function sql6($p){
          
          $a=microtime(1);
          $x=mysql_query($sql);
-       
         if($update)$x=mysql_query("SELECT cast(@uids as char(1000)) as up");
        
-         while($res=@mysql_fetch_assoc($x)){
-            if(!$res)continue;$result[]=$res;
-            if($indexes)foreach($indexes as $y)if(!in_array($md5,$index[$y][$res[$y]]))$index[$y][$res[$y]][]=$md5;
-          }
+if($select){
+  $nr=mysql_num_rows($x);if(!$nr)return;
+  #fecth is implicite here
+  while($res=@mysql_fetch_assoc($x)){
+      if(!$res)continue;
+      if($indexes)foreach($indexes as $y)if(!in_array($md5,$index[$y][$res[$y]]))$index[$y][$res[$y]][]=$md5;
+      
+      if($nr==1 && $single){
+          if(count($res)==1)$result=end($res);#1single results return a string : identifier (select name from table where id=9,single=1) => 1
+          else $result=$res;#Single Array for Result -> reduce to one dimension if one result (select id,name from table where id=9,single=1) [9,name]
+        #elseif($uniqueRow){$res=$t;}
+      }
+      elseif($pile && isset($res[$pile])){#dépilation
+          $id=$res[$pile];
+          if(count($res)==1)$result[]=$id;
+          else{unset($res[$pile]);$result[$id]=$res;}
+      }#select id,name from table where id in(1,2,3),pile=id => [1=>[1,name],2=>[2,name]]
+      elseif(count($res)==1 && $single)$res[]=end($res);#select id from table where id in(1,2,3);single=1 => [1,2,3]
+      else $result[]=$res;#defaults
+      #$res=array_filter($res);
+  }
+}
           $x=null;
           #print_r(compact('sql','index','result'));die;
         
@@ -112,18 +160,6 @@ function sql6($p){
             }
          }
       }
-
-     if($pI){#indexes to remove, according to invalidations
-          foreach($pI as $v){
-               $f=$cd.$v.'.inv';
-               if(!is_file($f) || !trim($v))continue;
-               $x=explode("\n",fgc1($f));
-               foreach($x as $v2){
-                    if(!is_file($cd.$v2))continue;
-                    unlink($cd.$v2);
-               }
-          }
-     }
 //returns at end of select, update ..
      if($result)return $result;
 }
