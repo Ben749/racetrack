@@ -3,10 +3,10 @@ class f{
   static $loaded=[];
   function __call($name,$args){
     $name=strtolower($name);
-    $f=__DIR__.'/fun.map.sdb';
+    $f=__DIR__.'/fun.map.json.php';#so apc might cache it
     if(!$_ENV['funmap'] && is_file($f)){
       $_ENV['funmap']=file_get_contents($f);
-      $_ENV['funmap.unser']=unserialize($_ENV['funmap']);
+      $_ENV['funmap.unser']=json_decode($_ENV['funmap'],1);
     }
     if(stripos($_ENV['funmap'],'"'.$name.'"')){
         if(array_key_exists($name,$_ENV['funmap.unser'])){

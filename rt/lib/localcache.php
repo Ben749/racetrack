@@ -28,5 +28,3 @@ if(is_file($x)&&(preg_match('#\.html?#',U))){#pour les fichiers php qui n'accept
     }#Si le générateur est différent du fichier - on charge le fichier comme un fichier de cache et fini par un die;
 	}
 }
-
-?>

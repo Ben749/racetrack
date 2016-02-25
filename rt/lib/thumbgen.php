@@ -1,4 +1,5 @@
 <?
+class thumbgen{}
 function thumbgen($params){
     global $debug;$ts=2;
     $owidth=$oheight=$filename=$h=$w=$ext=$posy=$posx=$srcx=$srcy=null;$quality=90;
