@@ -1,6 +1,6 @@
 <?
 $_ENV['titre']='sql6-cached';
-require_once'header.c.php';
+require_once'../header.c.php';
 #new fun;#ok with autoloader -- fine :)
 new sql6;
 
@@ -34,4 +34,4 @@ $x=sql6(compact('con','iP','sql'));
 print_r($x);
 
 echo'</pre>';
-require_once'footer.c.php';
+require_once'../footer.c.php';
