@@ -8,7 +8,7 @@ require_once'../header.c.php';echo'<pre>';
 
 $x=sqlO('select id,id_season from articles order by id desc limit 1');
 if($x['#']){#has errors
-  print_r($x);die;
+  if($x['0']['error']=='No database selected'){print_r($x);die;}
   $fun->r302('sql6-cache.php?r=mysqli.php#migrations required');
 }
 /** creates required database && tables **/
