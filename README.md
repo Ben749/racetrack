@@ -2,25 +2,6 @@
 
 Project Homepage && Demo :
 - https://racetrack.x24.fr
-        
-Cookbook / installation :
-
-- cd /home;git clone https://github.com/Ben749/racetrack.git;
-  cd racetrack;git branch yourCustomBranchName;
-  git fetch origin;git merge origin/master -X ours;#pulling newer code ( keeping your code upon each pull )
- 
-- replace /home/racetrack/ by your install path within each file if required
-- add 127.0.0.1 racetrack.dev host.2 to /WINDOWS/system32/drivers/etc/hosts
-- create apache vhost for racetrack.dev && host.2 >>> described in vhosts.conf
-
-Basic user && password : user pass
-
-Three Methods for Prepending Racetrack :
-- add to php.ini : auto_prepend_file /home/racetrack/rt/prepend.php
-- FrontController : within racetrack.dev/.htaccess >> uncomment : #RewriteRule .? index.php?frontcontroller=1 [QSA,L]
-- .htaccess : php_value auto_prepend_file  /home/racetrack/rt/prepend.php
-
-SQLcached && migrations : see test/sql6-cache.php
 
 Racetrack : 
 - Powerful user-friendly hybrid php & js toolbox
@@ -39,6 +20,27 @@ Racetrack :
 
     "Don't use fancy OOP features just because you can. Use fancy OOP features because they have specific, demonstrable benefit to the problem you're trying to solve." 
 
+        
+Cookbook / installation :
+
+- cd /home;git clone https://github.com/Ben749/racetrack.git;
+  cd racetrack;git branch yourCustomBranchName;
+  git fetch origin;git merge origin/master -X ours;#pulling newer code ( keeping your code upon each pull )
+ 
+- replace /home/racetrack/ by your install path within each file if required
+- add 127.0.0.1 racetrack.dev host.2 to /WINDOWS/system32/drivers/etc/hosts
+- create apache vhost for racetrack.dev && host.2 >>> described in vhosts.conf
+
+Three Methods for Prepending Racetrack :
+- add to php.ini : auto_prepend_file /home/racetrack/rt/prepend.php
+- FrontController : within racetrack.dev/.htaccess >> uncomment : #RewriteRule .? index.php?frontcontroller=1 [QSA,L]
+- .htaccess : php_value auto_prepend_file  /home/racetrack/rt/prepend.php
+
+Basic user && password : user pass
+
+Interesting Things : 
+- SQLcached && migrations : test/sql6-cache.php
+- Mysqli flat && OO php for transaction && parameters : test/mysqli.php
 
 ------------------------------------------------------------------
 small functions names : e, rem, rep, uses global space, lots of defined constants ( beware how you're handling arrays in php !! )
