@@ -38,6 +38,7 @@ function sql6($p){
      $cd=TMP.'sqlcache/';$x=null;$result=[];extract($p);
      if($suppr)$pl=$suppr;
      if($pl){#indexes to remove, according to invalidations
+        if(is_string($pl))$pl=explode(',',$pl);
       #print_r($pl);
         $mod=0;
           foreach($pl as $v){
@@ -61,7 +62,6 @@ function sql6($p){
      $s=['allready-unlinked'=>[]];
      
      if($iP && is_string($iP))$iP=explode(',',$iP);
-     if($pl && is_string($pl))$pl=explode(',',$pl);
      
      if(!$FieldIndex)$FieldIndex='id';
      
@@ -83,7 +83,7 @@ function sql6($p){
 
         $md5=md5($sql);$cachepath=$cd.$md5;
 
-        if(is_file($cachepath))return igbrz($cachepath);
+        if(is_file($cachepath))return igbrz($cachepath);#returns cached query
 
         if(!$conns[$thiscon]){
           mysql_connect($con[0],$con[1],$con[2]);#errors ?
