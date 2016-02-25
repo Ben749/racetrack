@@ -1,17 +1,23 @@
 <?
-ini_set('max_execution_time',2);set_time_limit(2);
-register_shutdown_function(function(){sqlp('close');sqlO('close');print_r($_ENV);});
-ini_set('display_errors',1);echo'<pre>';#set_error_handler("myErrorHandler");
+$fun=new f;
+ini_set('max_execution_time',2);set_time_limit(2);ini_set('display_errors',1);#set_error_handler("myErrorHandlerMysqli");
+register_shutdown_function(function(){sqlp('close');sqlO('close');});#print_r($_ENV);
 
-  $credentials=["localhost","root","a","bo"];#your credentials here
-  $x=sqlO('select id,id_season from articles order by id desc limit 1');
+$_ENV['titre']='mysqli object && flat php prepared statements, transactions';
+require_once'../header.c.php';echo'<pre>';
+
+$x=sqlO('select id,id_season from articles order by id desc limit 1');
+if($x['#'])#has errors
+  $fun->r302('sql6-cache.php?r=mysqli.php#migrations required');
+/** creates required database && tables **/
+  
 print_r(['sqlTransaction1:select']+compact('x'));
 #ERRORS:$x['#"] && $x[$index][0]=is_numeric(ERRORLINE);
 
 $x=sqlp('SELECT id,title,id_season from articles order by id desc limit ?',[1]);
 print_r(['sqlp2']+compact('x'));
 
-$x=sqlO(['select id,id_season from articles order by id desc limit ?','insert into bo.articles (title,id_season)values(?,?)',],[[1],['--new2',26]]);
+$x=sqlO(['select id,id_season from articles order by id desc limit ?','insert into test.articles (title,id_season)values(?,?)',],[[1],['--new2',26]]);
 print_r(['sqlTransaction2:select']+compact('x'));#fails & fails select as well !
 
 $x=sqlO('insert into articles (title,id_season)values(?,?)',[['--new1',24],['--new2',25],['fail',26]]);print_r(['sqlTransaction1']+compact('x'));#fails !
@@ -33,12 +39,14 @@ print_r(['sqlP4']+compact('x'));die;#*ù***************************************
 
 /*** pour updates, insertions, deletion multiples Transaction Orientée objet ***/
 function sqlO($sql,$parameters=[]){
-  static $mysqli;global $credentials;#$_ENV['db'][]=&$ret;
+  static $mysqli;global $sqlconn;#$_ENV['db'][]=&$ret;
   if($sql=='close'){if($mysqli){$mysqli->close();$mysqli=null;}return 1;}
-  if(!$mysqli){sqlp('close');
-    $class=new ReflectionClass('mysqli');
-    $mysqli=$class->newInstanceArgs($credentials);
-    #$mysqli = new mysqli('localhost','root','a','bo');
+  if(!$mysqli){
+    sqlp('close');
+    #$class=new ReflectionClass('mysqli');$mysqli2=$class->newInstanceArgs($sqlconn);
+    $mysqli = new mysqli($sqlconn[0],$sqlconn[1],$sqlconn[2],$sqlconn[3]);
+    $mysqli->select_db($sqlconn[3]);
+    #print_r(compact('mysqli','mysqli2'));
   }
   if(!$mysqli || !$mysqli->stat)return['#'=>[__line__,'no connection']];
   $mysqli->autocommit(0);$ok=1;
@@ -46,13 +54,14 @@ function sqlO($sql,$parameters=[]){
   elseif(is_array(reset($parameters))&& !is_array($sql))$sql=array_fill(0,count($parameters),$sql);#single sql multilple values
   
   try {
+  #print_r($sql);
     foreach($sql as $k=>$query){
       $ret[$k]=null;
       $fakeKeys=[];$types='';$params=[&$types];
       $param=$parameters[$k];
       
       if(!$stmt = $mysqli->prepare($query)){
-          $ret['#']=1;$ret[$k]=[__line__,$mysqli->error];$ok=0;Continue;
+          $ret['#']=1;$line=__line__;$error=$mysqli->error;$ret[$k]=compact('line','error');$ok=0;Continue;
         }
       
       if(count($param)){
@@ -107,12 +116,12 @@ function sqlO($sql,$parameters=[]){
 
 
 
-/** mysqli parameter queries **/
+/** mysqli parameter queries the flat way **/
 function sqlp($sql,$parameters=[],$rollback=0){
   static $link;#$_ENV['db'][]=&$ret;
   if($sql=='close'){if($link){mysqli_close($link);$link=null;}return 1;}
   if(!$link){sqlO('close');#avoid double connexions
-    global $credentials;$link=call_user_func_array(mysqli_connect,$credentials);
+    global $sqlconn;$link=call_user_func_array(mysqli_connect,$sqlconn);
     if(!$link)return['#'=>[__line__,'no connection']];
   }
    #if($rollback)mysqli_autocommit($link,0);  
@@ -178,7 +187,7 @@ function sqlp($sql,$parameters=[],$rollback=0){
   return $ret;
 }
 
-function myErrorHandler($no, $msg=null, $file=null, $line=null) {
+function myErrorHandlerMysqli($no, $msg=null, $file=null, $line=null) {
   static $errors;
   if($no===1 && $errors){
   foreach($errors as $k=>$v)$s.=$k.' '.$v."\n";$errors=[];

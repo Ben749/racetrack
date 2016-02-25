@@ -1,4 +1,7 @@
 <?
+$fun=new f;
+register_shutdown_function(function(){global $fun;if($_GET['r'])$fun->r302($_GET['r'].'#post required migration');});#print_r($_ENV);
+
 $_ENV['titre']='sql6-cached';
 require_once'../header.c.php';echo'<pre>';
 #new fun;#ok with autoloader -- fine :)
@@ -13,7 +16,7 @@ $cd=TMP.'sqlcache/';$con=$sqlconn;$iP=['databases'];$pile='Database';
 $sep='§§!';
 
 $migrations=[
-  '0.0.1'=>[
+  '0.0.1.createdb.test'=>[
     'title'=>"1st migration : creates database test && table products",
     'precheck'=>function(){
       global $con;$sql='show databases';$iP=['databases'];$pile='Database';
@@ -25,11 +28,21 @@ $migrations=[
     'suppr'=>'databases',
     'pm'=>[['title'=>'new db test shall show once databases cache previously deleted','sql'=>'show databases','iP'=>'databases','pile'=>'Database']]
   ],
+/** for mysqli usage **/  
+  '0.0.2.table.articles'=>[
+    'title'=>'articles',
+    'precheck'=>function(){
+      global $con;$sql='show tables from test';$pile='Tables_in_test';$x=sql6(compact('con','sql','pile'));
+      if(!$x)return"#$sql failed";if(in_array('articles',$x)){touch(TMP.'sqlcache/migration.0.0.2');return"#migration exists";}
+    },
+     'sqls'=>"CREATE TABLE test.articles (id INT NOT NULL AUTO_INCREMENT,id_season INT NOT NULL,title VARCHAR(255) NOT NULL,contents VARCHAR(255) NOT NULL,PRIMARY KEY (id)) ENGINE=InnoDB".$sep."INSERT INTO test.articles (id_season,title,contents) VALUES (24,'Spring 2016','Spring, hummingbirds..')"
+  ]
+  #id,title,id_season from articles
 ];
 
 foreach($migrations as $index=>$data){
     if(is_file(TMP.'sqlcache/migration.'.$index))continue;
-    echo"\n".$data['title'];
+    echo"\nMigration:".$data['title'];
     if($data['precheck']){$erreur=$data['precheck']();if($erreur)die($erreur);}
     
     $sqls=explode($sep,$data['sqls']);

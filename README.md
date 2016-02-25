@@ -20,6 +20,8 @@ Three Methods for Prepending Racetrack :
 - FrontController : within racetrack.dev/.htaccess >> uncomment : #RewriteRule .? index.php?frontcontroller=1 [QSA,L]
 - .htaccess : php_value auto_prepend_file  /home/racetrack/rt/prepend.php
 
+SQLcached && migrations : see test/sql6-cache.php
+
 Racetrack : 
 - Powerful user-friendly hybrid php & js toolbox
 - Fast Plug & Play
