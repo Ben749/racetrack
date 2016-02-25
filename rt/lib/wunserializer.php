@@ -1,5 +1,5 @@
 <?
-class wUnserializer{}
+class wunserializer{}
 function wUnserializer(&$debug){
   if(in_array(gettype($debug),['array','object']))return $debug;
   try{$debug=unserialize($debug);}

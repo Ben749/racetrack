@@ -1,6 +1,6 @@
 <?
 new debug53;
-new wUnserializer;#since the serialized file was modified :)
+new wunserializer;#since the serialized file was modified :)
 
 if(Q)$q=Q;
 else $q='debug.sdb';
