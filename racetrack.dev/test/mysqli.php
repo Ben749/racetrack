@@ -1,5 +1,5 @@
 <?
-$fun=new f;
+$fun=new f;new sql6;
 ini_set('max_execution_time',2);set_time_limit(2);ini_set('display_errors',1);#set_error_handler("myErrorHandlerMysqli");
 register_shutdown_function(function(){sqlp('close');sqlO('close');});#print_r($_ENV);
 
@@ -7,8 +7,10 @@ $_ENV['titre']='mysqli object && flat php prepared statements, transactions';
 require_once'../header.c.php';echo'<pre>';
 
 $x=sqlO('select id,id_season from articles order by id desc limit 1');
-if($x['#'])#has errors
+if($x['#']){#has errors
+  print_r($x);die;
   $fun->r302('sql6-cache.php?r=mysqli.php#migrations required');
+}
 /** creates required database && tables **/
   
 print_r(['sqlTransaction1:select']+compact('x'));
