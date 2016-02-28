@@ -1,4 +1,4 @@
-var Analytics=ga=null,_gaq=[];
+var Analytics=ga=null,_gaq=[],d=document;
 function tolow(x){type=typeof(x);if(!x || type!='string'){return x;}return x.toLowerCase();}tolower=tolow;
 function submitChanged(f,ignores){//only sends modified data, disables input upon submit
   ignores=ignores||null;
