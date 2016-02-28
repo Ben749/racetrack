@@ -21,7 +21,7 @@ if($_GET['e']==404)require_once'router.php';
 switch(Q){
     case'css':$f->h('css');echo"body{margin:auto;color:#000;font:16px Raleway;}
     .button{cursor:pointer;}.button:hover{background:#000;color:#FFF;border:2px dashed #0D0;}";die;#or readfile multiples css
-    case'js':$f->h('js');die;#echo"document.write('js loaded');";die;
+    case'js':$f->h('js');readfile('js.js');die;#echo"document.write('js loaded');";die;
 }
 #if(!Q)$f->R302('?putssomequerystringwhenNotSet');
 if(stripos(U,'index.php')!==false)$f->R302('./?#index');
