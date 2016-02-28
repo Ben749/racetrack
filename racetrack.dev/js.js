@@ -1,4 +1,27 @@
-var Analytics=ga=null,_gaq=[],d=document;
+var nf=function(){},Analytics=ga=null,_gaq=[],d=document,$bodyloaded=null,clog=console.debug||nf;
+
+if(d.addEventListener){var aelist=d.addEventListener("DOMContentLoaded",function(){loaded(1,'eventlistener');},false);}//220ms,alljsload
+else{si=setInterval(function(){if(d.readyState==="complete"){clearInterval('si');loaded(1,'domrdystate:complete');}},100);}//ie<9:faster
+function loaded(x,via){$bodyloaded=1;clog('docloaded');}
+/**
+//is not enough if jquery is straight called from inline code .. or delay init with 
+SI('no$onBodyLoaded',30,function(){
+    if(!$bodyloaded)return;SI('no$onBodyLoaded');
+    if(typeof($.fn.jquery)=='string')return;//okay then
+    clog('no jquery:adding'+typeof($));
+    addjs('//x24.fr/!c/jq.js','nf',1);
+});
+
+SI('jqOnLoad',30,function(){
+    if(typeof($.fn.jquery)!='string')return;SI('jqOnLoad');
+    clog('$:'+typeof($));
+    if(ajaxLog && j9 && nav!='ie'){
+        $(d).ajaxComplete(function(e,x,s){ajaxLog(e,x,s)});
+        $(d).ajaxError(function(e,x,s){ajaxLog(e,x,s)});
+    }
+});
+*/
+
 function tolow(x){type=typeof(x);if(!x || type!='string'){return x;}return x.toLowerCase();}tolower=tolow;
 function submitChanged(f,ignores){//only sends modified data, disables input upon submit
   ignores=ignores||null;
@@ -299,8 +322,14 @@ function Ejax(url,param,dest){  var xhr;
       $(dest).innerHTML=xhr.responseText;}
 }}return 1;}
 
-//todo:different tests, ( if document loaded, if jquery loaded ) returns 1 
-function tes(){return 1;}
+function tes(x){
+    if(typeof(x)=='string')x=tolow(x);
+    switch(x){
+        case 1:case'1':case'l':case'loaded':case'bodyloaded':if($bodyloaded)return 1;break;
+        case'$':if(typeof(window.$)=='function')return 1;break;
+    }
+    return 0;
+}
 
 function setAnalytics(code){
   if((!Analytics && 0) || !code)return;
@@ -310,7 +339,7 @@ function setAnalytics(code){
 
 function addjs(x,callback,lock){
   lock=lock||null;
-  if(!tes('l')){sii(function(){addjs(x,callback,lock);},0,0,30);return;}
+  if(!tes('l')){sii(function(){addjs(x,callback,lock);},0,0,30);return;}//only once loaded 
   if(!addjs.res)addjs.res=[];
   if(lock && addjs.res.indexOf(x)>-1)return;addjs.res.push(x);//lock empeche de charger deux fois le même js
   
@@ -324,7 +353,6 @@ function addjs(x,callback,lock){
       try{d.documentElement.firstChild.appendChild(s);clog('addjs-done:3:',x);}
       catch(e){console.debug('addjs-fail:',x);return 0;}
     }
-    //d.getElementById('head')[0].appendChild(s);
   }
   
   s.onreadystatechange=function(e){clog('stch',x,this,e);};
@@ -342,3 +370,27 @@ function addjs(x,callback,lock){
   return 1;
 }
 
+/** setInterval && clearInterval at condition matched handlers : returns 1 as okay**/
+function SI(ref,time,fun){
+  if(!SI.intervals)SI.intervals=[];
+  if(ref && !time){clearInterval(window.ref);clearInterval(SI.intervals[ref]);SI.intervals[ref]=null;return 1;}//si condition déjà respectée, lancer 
+  if(!SI.intervals[ref] && fun && time)SI.intervals[ref]=setInterval(fun,time);
+  return;
+}
+/** SetInterval function while condition not met **/
+function sii(fun,cond,ref,time){//wait
+  if(!sii.i)sii.i=0;sii.i++;
+  var cond=cond || "tes('l')",ok=0;
+  //clog('cond:'+cond);
+  try{ok=eval(cond);}catch(e){console.debug(e);}//var not defined or whatever
+  if(!ok || !cond || (typeof(cond)=='string' && !eval(cond))){
+    var time=time||300,ref=ref||'sii:'+sii.i;
+    SI(ref,time,function(){
+      var ok=0;try{ok=eval(cond);}catch(e){}if(!ok)return;SI(ref);
+      //console.debug(ref,'cond:'+cond+' => '+ok);
+      if(typeof(fun)=='function')fun();else eval(fun);//self-destructs and launches the function !
+    });
+    return;
+  }
+  if(typeof(fun)=='function')fun();else eval(fun);
+}
