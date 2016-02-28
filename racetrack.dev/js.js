@@ -1,4 +1,4 @@
-var Analytics=ga=null;
+var Analytics=ga=null,_gaq=[];
 function tolow(x){type=typeof(x);if(!x || type!='string'){return x;}return x.toLowerCase();}tolower=tolow;
 function submitChanged(f,ignores){//only sends modified data, disables input upon submit
   ignores=ignores||null;
@@ -300,7 +300,7 @@ function Ejax(url,param,dest){  var xhr;
 }}return 1;}
 
 function setAnalytics(code){
-  if((!Analytics && 0) || !code || !_gaq)return;
+  if((!Analytics && 0) || !code)return;
   if(code.indexOf('UA-')==-1)code='UA-'+code;
   _gaq.push(['_setAccount',code]);_gaq.push(['_setAllowAnchor', true]);_gaq.push(['_trackPageview']);addjs('//google-analytics.com/ga.js','',1);//UA-939677-24
 }
