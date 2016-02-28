@@ -298,3 +298,43 @@ function Ejax(url,param,dest){  var xhr;
       $(dest).innerHTML=xhr.responseText;}
 }}return 1;}
 
+function setAnalytics(code){
+  if((!Analytics && 0) || !code || !_gaq)return;
+  if(code.indexOf('UA-')==-1)code='UA-'+code;
+  _gaq.push(['_setAccount',code]);_gaq.push(['_setAllowAnchor', true]);_gaq.push(['_trackPageview']);addjs('//google-analytics.com/ga.js','',1);//UA-939677-24
+}
+
+function addjs(x,callback,lock){
+  lock=lock||null;
+  if(!tes('l')){sii(function(){addjs(x,callback,lock);},0,0,30);return;}
+  if(!addjs.res)addjs.res=[];
+  if(lock && addjs.res.indexOf(x)>-1)return;addjs.res.push(x);//lock empeche de charger deux fois le même js
+  
+  var s=d.createElement("script");
+  s.onerror=function(e){clog('error loading ',x,e);};
+  //s.onload=function(e){console.debug('loaded',x,e);}; 
+  try{d.body.appendChild(s);clog('addjs-done:1:',x);}//using onload requires body
+  catch(e){
+    try{d.head.appendChild(s);clog('addjs-done:2:',x);}
+    catch(e){
+      try{d.documentElement.firstChild.appendChild(s);clog('addjs-done:3:',x);}
+      catch(e){console.debug('addjs-fail:',x);return 0;}
+    }
+    //d.getElementById('head')[0].appendChild(s);
+  }
+  
+  s.onreadystatechange=function(e){clog('stch',x,this,e);};
+  if(callback){
+    s.onload=function(){
+      clog('loaded->',callback);
+      if(typeof(callback)=='string')window[callback]();else if(typeof(callback)=='function')callback();
+    }
+    s.onreadystatechange = function() {if (this.readyState == 'complete'){
+      clog('onreadystatechange->',callback);
+    if(typeof(callback)=='string')window[callback]();else if(typeof(callback)=='function')callback();}};
+  }
+  
+  s.async=true;s.src=x;s.type="text/javascript";
+  return 1;
+}
+
