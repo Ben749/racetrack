@@ -33,7 +33,7 @@ function submitChanged(f,ignores){//only sends modified data, disables input upo
       if(o.type=='checkbox' && o.checked==o.defaultChecked){o.disabled="disabled";continue;}//state not changed
       if(ignores && ignores.indexOf(o.type)>-1)continue;//ignores those ones
       if(o.className!='k' && o.value==o.defaultValue && (!o.disabled || tolow(o.disabled)=="disabled")){
-        if(o.disabled!=true)o.disabled="disabled";//sinon désactive ces dernières
+        if(o.disabled!=true)o.disabled="disabled";//sinon dÃ©sactive ces derniÃ¨res
       }
     }
   }
@@ -64,7 +64,7 @@ function $(id){//AHAH :)) || REG("object",z)!=0
   return Tage;  //xx(ben) is null @ line 52 missing
 }
 
-//***Code Vérification des Champs on The FLY ****
+//***Code VÃ©rification des Champs on The FLY ****
 function testval(v,type,fe){
     if(fe=="undefined" || fe==''|| fe===undefined)fe='';
   if(type=="undefined" || type==''|| type===undefined){minimum=2;type="minimum";}
@@ -114,7 +114,7 @@ ref=document.referrer;d=document; page=document.location.href;
 mousex=mousey=0;xfoo=-190;yfoo=10;loc='loc';
 
 function verifmail(adr){if(adr==""){return false;}adr=adr.toLowerCase();//|\\.fe|111|
-Mails=new RegExp("bbb|azerty|abcd|truc|ffg|null|qsd|00|votreemail@orange\\.fr|kkk|ASDZSD|titi|eee|ccc|ddd|dodo|ornage\\.|&|rg\\.ae|\\.cim|oragn\\.fr|wandoo\\.fr|orangre\\.|àhot|frfr|sfsf|dfgk|iutk|jhg|gfh|jgfg|tatayoyo|bobo|jiji|dfjh|sjkf|dsfg|skj|hotamail|hoymail|aliceqadsl|hgfvhf|jkhg|kjhb|@test|@wanadou|blabla@|portail-pat|@ayhoo\\.fr|adresse\\.email@|@bidon|jkj@|xxx@|gfdg|fdsf|dbgd|wanandoo|@com|toto@|test@|abc@|@clu-inte|@otm|@GHJK|@lkl|€or|gouv@|@wnadoo|fgdf@|@fdg|@yopmail|@vanadoo|@hotail|@rr\\.fr|aliceadls\\.fr|@nuf\\.fr|@nuef\\.fr|@noss\\.fr|cararamail|@lub-in|@mail\\.|cegeel|dfg|internett\\.|\\.frr|@hotmil\\.|@ahoo|mail\\.om|@sr\\.fr|hotmai\\.|orange\\.fe| |kjl|mjk|mlmj|l@jkh","gi");result=Mails.exec(adr);
+Mails=new RegExp("bbb|azerty|abcd|truc|ffg|null|qsd|00|votreemail@orange\\.fr|kkk|ASDZSD|titi|eee|ccc|ddd|dodo|ornage\\.|&|rg\\.ae|\\.cim|oragn\\.fr|wandoo\\.fr|orangre\\.|Ã hot|frfr|sfsf|dfgk|iutk|jhg|gfh|jgfg|tatayoyo|bobo|jiji|dfjh|sjkf|dsfg|skj|hotamail|hoymail|aliceqadsl|hgfvhf|jkhg|kjhb|@test|@wanadou|blabla@|portail-pat|@ayhoo\\.fr|adresse\\.email@|@bidon|jkj@|xxx@|gfdg|fdsf|dbgd|wanandoo|@com|toto@|test@|abc@|@clu-inte|@otm|@GHJK|@lkl|â‚¬or|gouv@|@wnadoo|fgdf@|@fdg|@yopmail|@vanadoo|@hotail|@rr\\.fr|aliceadls\\.fr|@nuf\\.fr|@nuef\\.fr|@noss\\.fr|cararamail|@lub-in|@mail\\.|cegeel|dfg|internett\\.|\\.frr|@hotmil\\.|@ahoo|mail\\.om|@sr\\.fr|hotmai\\.|orange\\.fe| |kjl|mjk|mlmj|l@jkh","gi");result=Mails.exec(adr);
   if(result!==null){return false;}//alert(adr+":"+result);
   reg=new RegExp("^[a-z0-9._-]+@[a-z0-9.-]{2,}[.][a-z]{2,3}$");//Good mail reg
   if(reg.exec(adr)!==null){return 1;}else{return false;}
@@ -127,7 +127,7 @@ function V4(champs){errs='';//alert(champs);
     y=c(valids[i]);if(y===''){continue;}x=$(y);
     x.className='error';errs+="!"+valids[i];
   }
-  if(errs){alert("Merci de renseigner les champs obligatoires (entourés en rouge)");}return 0;
+  if(errs){alert("Merci de renseigner les champs obligatoires (entourÃ©s en rouge)");}return 0;
 }
 
 function VF(x,type){
@@ -144,7 +144,7 @@ function V3(champs){e='';//champs=trim(champs,", ");
     y=c(valids[i]);if(y=='' || y=='formulaire' || y=='blocnotes'){continue;}
     RedAlert(y);e+=","+y;
   }
-  if(e){alert("Merci de renseigner les champs obligatoires (entourés en rouge)");return false;}
+  if(e){alert("Merci de renseigner les champs obligatoires (entourÃ©s en rouge)");return false;}
   return 1;
 }
 
@@ -153,7 +153,7 @@ function trim(x,y){x=rtrim(x,y);x=ltrim(x,y);return x;}
 function ltrim(x,y){y=y+"\\s";return x.replace(new RegExp("^["+y+"]+","g"),"");}
 function rtrim(x,y){y=y+"\\s";return x.replace(new RegExp("["+y+"]+$","g"),"");}
 
-//expressions regulières to clean the crap hors des formulaires :)
+//expressions reguliÃ¨res to clean the crap hors des formulaires :)
 function V2(champs,form,err){
   if(V3(champs)==1){return 1;}
   return false;//retourne au formulaire 1ok ou 0 not ok
@@ -186,7 +186,7 @@ function mgmt(url,data){data=c(data);url+=data;x=url.split("?");
 }
 
 function getCoord(e){return'';
-  //if(!e)e=window.event;//pour ie seulement... onmouseove ne lui renvoye pas l'évenement, contrairement au moteur gecko de FF/mozilla
+  //if(!e)e=window.event;//pour ie seulement... onmouseove ne lui renvoye pas l'Ã©venement, contrairement au moteur gecko de FF/mozilla
   if(e){//on peut ici avec le moteur gecko utiliser directement e.pageX et e.pageY, mais ie encore...
     mousex = e.clientX + document.body.scrollLeft;
     mousey = e.clientY + document.body.scrollTop;
@@ -208,14 +208,14 @@ function strlen(x){if(x===undefined)x='';return x.length;}
 
 function VerifStandard(e){e='';//NOM,PRENOM,TELP,CPOS,EMAIL
 x=GetVal("TEL");x=x.replace(/[^0-9]/g,'');
-if(Tels.test(x)==1 || CP.test(x)==1 || x.length<10 || x==""){e+=" ! Numéro de Téléphone";RedAlert("TEL");}
+if(Tels.test(x)==1 || CP.test(x)==1 || x.length<10 || x==""){e+=" ! NumÃ©ro de TÃ©lÃ©phone";RedAlert("TEL");}
 x=GetVal("NOM");if(testnom(x)==1){e+=" ! Nom";RedAlert("NOM");}
-x=GetVal("PRENOM");if(testnom(x)==1){e+=" ! Prénom";RedAlert("PRENOM");}
+x=GetVal("PRENOM");if(testnom(x)==1){e+=" ! PrÃ©nom";RedAlert("PRENOM");}
 x=GetVal("CPOS");if(CP.test(x)==1 || x=="" || x.length<4 || x=="12345"){e+=" ! Code Postal";RedAlert("CPOS");x="";}
 x=GetVal("EMAIL");//Yeahhhhh
 if(verifmail(x)===false){e+=" ! Email";RedAlert("EMAIL");} //YupLa("LGXp");
-  if(e){alert("Merci de renseigner les champs Entourés en Rouge");return false;}//+Erreur
-  alert("Toute l'équipe vous remercie de votre demande");return true;
+  if(e){alert("Merci de renseigner les champs EntourÃ©s en Rouge");return false;}//+Erreur
+  alert("Toute l'Ã©quipe vous remercie de votre demande");return true;
 }
 
 function trim(myString){
@@ -341,7 +341,7 @@ function addjs(x,callback,lock){
   lock=lock||null;
   if(!tes('l')){sii(function(){addjs(x,callback,lock);},0,0,30);return;}//only once loaded 
   if(!addjs.res)addjs.res=[];
-  if(lock && addjs.res.indexOf(x)>-1)return;addjs.res.push(x);//lock empeche de charger deux fois le même js
+  if(lock && addjs.res.indexOf(x)>-1)return;addjs.res.push(x);//lock empeche de charger deux fois le mÃªme js
   
   var s=d.createElement("script");
   s.onerror=function(e){clog('error loading ',x,e);};
@@ -373,7 +373,7 @@ function addjs(x,callback,lock){
 /** setInterval && clearInterval at condition matched handlers : returns 1 as okay**/
 function SI(ref,time,fun){
   if(!SI.intervals)SI.intervals=[];
-  if(ref && !time){clearInterval(window.ref);clearInterval(SI.intervals[ref]);SI.intervals[ref]=null;return 1;}//si condition déjà respectée, lancer 
+  if(ref && !time){clearInterval(window.ref);clearInterval(SI.intervals[ref]);SI.intervals[ref]=null;return 1;}//si condition dÃ©jÃ  respectÃ©e, lancer 
   if(!SI.intervals[ref] && fun && time)SI.intervals[ref]=setInterval(fun,time);
   return;
 }
