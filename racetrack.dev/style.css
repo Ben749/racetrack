@@ -7,7 +7,7 @@ html{font:22px/22px  Calibri,Segoe UI,Trebuchet MS,Verdana;}
 @media screen and (max-width:1300px){html{font:16px/16px Calibri;}}
 @media screen and (max-width:1200px){html{font:15px/15px Calibri;}}
 @media screen and (max-width:1100px){html{font:14px/14px Calibri;}}
-@media screen and (max-width:1000px){html{font:13px/13px Calibri;}}
+@media screen and (max-width:1000px){.nomob{display:none;}html{font:13px/13px Calibri;}}
 @media screen and (max-width:900px){html{font:12px/12px Calibri;}}
 @media screen and (max-width:800px){html{font:11px/11px Calibri;}}
 

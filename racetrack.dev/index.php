@@ -67,7 +67,7 @@ $out.= $articlesList;
 $vidz=['Night-Traffic.mp4','Fish-Tank.mp4','Ideas.mp4','Coder.mp4','PC-Typing.mp4'];
 shuffle($vidz);$vid=end($vidz);
 ?>
-<video autoplay poster='' id="bgvid" loop><source src="//x24.fr/<?=$vid?>?1" type="video/mp4"></video>
+<video class='nomob' poster='' id="bgvid" loop autoplay><source src="//x24.fr/<?=$vid?>?1" type="video/mp4"></video>
 
 <a href="https://github.com/Ben749/racetrack"><img style="position: fixed; top: 0; left: 0; border: 0;" src="//x24.fr/forkme_left_orange_ff7600.png" alt="Fork me on GitHub" ></a>
 <div id=top><?#="bg : ".$bg.$bgs?></div><div id=bot></div>
