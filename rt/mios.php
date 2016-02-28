@@ -64,7 +64,7 @@ register_shutdown_function(function(){
 function shutdown($x=null,$top=0){
 #$e=error_get_last();fb($e);
   global $shutdown;
-  if(!is_array($sthudown))$shutdown=[];
+  if(!is_array($shutdown))$shutdown=[];
   if($x===1){#fired once but allows other functions to be fired & allows second pass, third pass etc...   
     $shutdown=array_filter($shutdown);
     if(!count($shutdown))return;
@@ -78,7 +78,7 @@ function shutdown($x=null,$top=0){
   }
   #echo gettype($x);$x();die;
   
-  if($x && $top)array_unshift($shutdown,$x);
+  if($x and $top)array_unshift($shutdown,$x);
   elseif(!in_array($x,$shutdown))$shutdown[]=$x;
   if($x)return 1;#ajouts :)
 }

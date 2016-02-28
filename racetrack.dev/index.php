@@ -36,6 +36,16 @@ $headerLinks=$footerLinks=[];
 
 $f->gt('timer');
 
+require_once'header.c.php';
+
+$x=glob('*.php');
+foreach($x as $v){
+  if(strpos($v,'.c.php')!==false or strpos($v,'.inc.php')!==false || strpos($v,'todo')!==false || strpos($v,'router')!==false)continue;
+  $out.="\n - <a href='$v'>".str_replace('.php','',$v)."</a>";
+}
+$out.="\n - <a href='/test/'>Tests ( password protected ) </a>";
+$out.="\n - <a href='/adm/'>admin ( password protected ) </a>";
+
 /* artices */
 $f='adm/editor.json';
 if(is_file($f)){
@@ -53,19 +63,9 @@ if(is_file($f)){
   $articlesList="\n\nArticles :\n   ".implode(' - ',$z);
 }
 
-require_once'header.c.php';
-?><div id=top><?#="bg : ".$bg.$bgs?></div><div id=bot></div>
-<pre>Racetrack demo home : directory contents : <?#='CWD : '.CWD?>
-<?
-$x=glob('*.php');
-foreach($x as $v){
-  if(strpos($v,'.c.php')!==false or strpos($v,'.inc.php')!==false || strpos($v,'todo')!==false || strpos($v,'router')!==false)continue;
-  echo"\n - <a href='$v'>".str_replace('.php','',$v)."</a>";
-}
-echo"\n - <a href='/test/'>Tests ( password protected ) </a>";
-echo"\n - <a href='/adm/'>admin ( password protected ) </a>";
-
-echo $articlesList;
+$out.= $articlesList;
 ?>
-</pre>
+<a href="https://github.com/Ben749/racetrack"><img style="position: fixed; top: 0; left: 0; border: 0;" src="//x24.fr/forkme_left_orange_ff7600.png" alt="Fork me on GitHub" ></a>
+<div id=top><?#="bg : ".$bg.$bgs?></div><div id=bot></div>
+<pre>Racetrack demo home : directory contents : <?=$out;#='CWD : '.CWD?></pre>
 <?require_once'footer.c.php';?>
