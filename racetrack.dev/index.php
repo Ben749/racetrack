@@ -25,7 +25,7 @@ switch(Q){
 }
 #if(!Q)$f->R302('?putssomequerystringwhenNotSet');
 if(stripos(U,'index.php')!==false)$f->R302('./?#index');
-if(!Q)$f->R302('?noQueryString');#Notice they are respectivelty cumulative with each other
+if(!Q)$f->R302('?1#');#Notice they are respectivelty cumulative with each other
 
 Rem($_ENV['titre'],$def['titre']);
 Rem($_ENV['desc'],$def['desc']);
@@ -63,9 +63,11 @@ if(is_file($f)){
   $articlesList="\n\nArticles :\n   ".implode(' - ',$z);
 }
 
-$out.= $articlesList;#Night-Traffic.mp4 poster="<?=$bg? >"
+$out.= $articlesList;
+$vidz=['Night-Traffic.mp4','Fish-Tank.mp4','Ideas.mp4','Coder.mp4','PC-Typing.mp4'];
+shuffle($vidz);$vid=end($vidz);
 ?>
-<video autoplay id="bgvid" loop><source src="//x24.fr/Fish-Tank.mp4" type="video/mp4"></video>
+<video autoplay poster='' id="bgvid" loop><source src="//x24.fr/<?=$vid?>?1" type="video/mp4"></video>
 
 <a href="https://github.com/Ben749/racetrack"><img style="position: fixed; top: 0; left: 0; border: 0;" src="//x24.fr/forkme_left_orange_ff7600.png" alt="Fork me on GitHub" ></a>
 <div id=top><?#="bg : ".$bg.$bgs?></div><div id=bot></div>
