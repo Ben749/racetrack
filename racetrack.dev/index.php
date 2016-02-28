@@ -63,9 +63,23 @@ if(is_file($f)){
   $articlesList="\n\nArticles :\n   ".implode(' - ',$z);
 }
 
-$out.= $articlesList;
+$out.= $articlesList;#Night-Traffic.mp4 poster="<?=$bg? >"
 ?>
+<video autoplay id="bgvid" loop><source src="//x24.fr/Fish-Tank.mp4" type="video/mp4"></video>
+
 <a href="https://github.com/Ben749/racetrack"><img style="position: fixed; top: 0; left: 0; border: 0;" src="//x24.fr/forkme_left_orange_ff7600.png" alt="Fork me on GitHub" ></a>
 <div id=top><?#="bg : ".$bg.$bgs?></div><div id=bot></div>
 <pre>Racetrack demo home : directory contents : <?=$out;#='CWD : '.CWD?></pre>
-<?require_once'footer.c.php';?>
+<?require_once'footer.c.php';die;?>
+
+
+
+
+
+
+
+
+
+
+
+
