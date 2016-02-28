@@ -299,6 +299,9 @@ function Ejax(url,param,dest){  var xhr;
       $(dest).innerHTML=xhr.responseText;}
 }}return 1;}
 
+//todo:different tests, ( if document loaded, if jquery loaded ) returns 1 
+function tes(){return 1;}
+
 function setAnalytics(code){
   if((!Analytics && 0) || !code)return;
   if(code.indexOf('UA-')==-1)code='UA-'+code;
