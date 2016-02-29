@@ -395,7 +395,7 @@ function setAnalytics(code){
   if(code.indexOf('UA-')==-1)code='UA-'+code;
   
   _gaq.push(['_setAllowAnchor',true]);_gaq.push(['_trackPageview']);_gaq.push(['_setAccount',code]);
-s=document.createElement("script");document.head.appendChild(s);s.async=true;s.src='//google-analytics.com/ga.js';s.type='text/javascript';
+s=document.createElement("script");document.head.appendChild(s);s.src='//google-analytics.com/ga.js';s.type='text/javascript';//s.async=true;
   setAnalytics.init=1;return 1;//UA-939677-24
   
   _gaq.push(['_setAccount',code]);_gaq.push(['_setAllowAnchor', true]);_gaq.push(['_trackPageview']);addjs('//google-analytics.com/ga.js','',1);
