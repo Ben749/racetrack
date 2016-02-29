@@ -1,4 +1,4 @@
-var nf=function(a,b,c,d,e,f,g,h){return;},$bodyloaded=ga=Analytics=null,_gaq=[],d=document,clog=nf,ie=(d.all)?true:false,ns4=(d.layers)?true:false,dom=(d.getElementById)?true:false,ie7=false,ref=d.referrer,page=d.location.href,mousex=mousey=0,xfoo=-190,yfoo=10,loc='loc';
+var nf=function(a,b,c,d,e,f,g,h){return;},previouserror=$bodyloaded=ga=Analytics=null,_gaq=[],d=document,clog=nf,ie=(d.all)?true:false,ns4=(d.layers)?true:false,dom=(d.getElementById)?true:false,ie7=false,ref=d.referrer,page=d.location.href,mousex=mousey=0,xfoo=-190,yfoo=10,loc='loc';
 if(console && console.debug)clog=console.debug;
 
 if(d.addEventListener){var aelist=d.addEventListener("DOMContentLoaded",function(){loaded(1,'eventlistener');},false);}//220ms,alljsload
