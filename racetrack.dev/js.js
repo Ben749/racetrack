@@ -1,4 +1,4 @@
-var nf=function(){},$bodyloaded=Analytics=null,_gaq=[],d=document,clog=console.debug||nf;
+var nf=function(){},$bodyloaded=ga=Analytics=null,_gaq=[],d=document,clog=console.debug||nf;
 
 if(d.addEventListener){var aelist=d.addEventListener("DOMContentLoaded",function(){loaded(1,'eventlistener');},false);}//220ms,alljsload
 else{si=setInterval(function(){if(d.readyState==="complete"){clearInterval('si');loaded(1,'domrdystate:complete');}},100);}//ie<9:faster
