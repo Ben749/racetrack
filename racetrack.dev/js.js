@@ -333,6 +333,7 @@ function tes(x){
 
 function addjs(x,callback,lock){
   lock=lock||null;
+  clog('addjs',x,callback,lock,tes('l'));
   if(!tes('l')){sii(function(){addjs(x,callback,lock);},0,0,30);return;}//only once loaded 
   if(!addjs.res)addjs.res=[];
   if(lock && addjs.res.indexOf(x)>-1)return;addjs.res.push(x);//lock empeche de charger deux fois le même js
@@ -348,18 +349,16 @@ function addjs(x,callback,lock){
       catch(e){console.debug('addjs-fail:',x);return 0;}
     }
   }
-  
-  s.onreadystatechange=function(e){clog('stch',x,this,e);};
+s.onreadystatechange=function(e){clog('stch',x,this,e);};
   if(callback){
     s.onload=function(){
       clog('loaded->',callback);
       if(typeof(callback)=='string')window[callback]();else if(typeof(callback)=='function')callback();
     }
-    s.onreadystatechange = function() {if (this.readyState == 'complete'){
+    s.onreadystatechange=function(){if(this.readyState == 'complete'){
       clog('onreadystatechange->',callback);
     if(typeof(callback)=='string')window[callback]();else if(typeof(callback)=='function')callback();}};
   }
-  
   s.src=x;s.type="text/javascript";//s.async=true;
   return 1;
 }
@@ -393,12 +392,8 @@ function sii(fun,cond,ref,time){//wait
 function setAnalytics(code){
   if((!Analytics && 0) || !code || setAnalytics.init)return;
   if(code.indexOf('UA-')==-1)code='UA-'+code;
-  
 _gaq.push(['_setAccount',code]);_gaq.push(['_setAllowAnchor',true]);_gaq.push(['_trackPageview']);
-s=document.createElement("script");document.head.appendChild(s);s.src='//google-analytics.com/ga.js';s.type='text/javascript';setAnalytics.init=1;return 1;
-  
-  
-  _gaq.push(['_setAllowAnchor',true]);_gaq.push(['_trackPageview']);_gaq.push(['_setAccount',code]);
-  addjs('//google-analytics.com/ga.js',null,1);
+//s=document.createElement("script");document.head.appendChild(s);s.src='//google-analytics.com/ga.js';s.type='text/javascript';//variables upon same scope ???
+  addjs('//google-analytics.com/ga.js',function(){clog('ga:loaded');},1);
   setAnalytics.init=1;return 1;
 }
