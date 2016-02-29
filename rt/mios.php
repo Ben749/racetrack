@@ -46,7 +46,7 @@ $shutdown=[];
 register_shutdown_function(function(){
   global $noshutdown,$anotations;
   if($noshutdown || args(',nofun',1))return;#for media thumbnails dynamic generation
-  if(!args(',noheaderscheck',1)){
+  if(args(',headerssentcheck',1)){
     if(headers_sent($file,$line))wmail('error@x24.fr','headers sent',SU."\n".$file.':'.$line);#404 - normal car ob_get_clean
     else{
       if(J8||J9)header("Cache-Control: private",1);#cumulé depuis J9 à J11
