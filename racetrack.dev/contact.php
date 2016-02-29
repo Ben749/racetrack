@@ -43,7 +43,7 @@ $but=stripslashes($but);
 if($_GET['b2']){$but=str_replace('.',' ',$_GET['b2']);$b1=str_replace('.',' ',$_GET['b1']);}
 if(is_array($t2))$t2='';#
 require_once'header.c.php';
-noscript();?>
+noscript();?><center>
 
 <form action='' method="post" onsubmit="console.log(verif());return false;return verif();return false;" class=contactform>
 
