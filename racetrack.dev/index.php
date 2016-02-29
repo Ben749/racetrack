@@ -27,9 +27,9 @@ switch(Q){
 if(stripos(U,'index.php')!==false)$f->R302('./?#index');
 if(!Q)$f->R302('?1#');#Notice they are respectivelty cumulative with each other
 
-Rem($_ENV['titre'],$def['titre']);
-Rem($_ENV['desc'],$def['desc']);
-Rem($_ENV['keyw'],$def['keyw']);
+$_ENV['keyw']=$_ENV['desc']=$_ENV['titre']='racetrack ² - fast & easy php plug & play framework';
+
+/*set to defaults values if not set :Rem($_ENV['titre'],$def['titre']);*/
 
 $headermenu=$footermenu='';
 $headerLinks=$footerLinks=[];
