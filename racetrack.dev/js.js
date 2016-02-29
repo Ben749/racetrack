@@ -13,13 +13,13 @@ if(nav.indexOf('%) ')>-1)j9=1;
 if(nav.indexOf('iphone')>-1)nav='iphone';else if(nav.indexOf('android')>-1)nav='android';else if(nav.indexOf('chrome')>-1)nav='chrome';else if(nav.indexOf('safari')>-1)nav='safari';else if(nav.indexOf('firefox')>-1)nav='firefox';else if(nav.indexOf('msie')>-1)nav='ie';else if(nav.indexOf('like gecko')>-1)nav='ie';
 
 if(typeof(console)=='undefined' || !console)console={'log':nf,'debug':nf,'info':nf,'warn':nf};
-if(console && console.debug && typeof(console.debug)=='function' && nav!='ie')clog=console.debug;
+if(console && console.debug && typeof(console.debug)=='function' && nav!='ie'){clog=function(){ return console.debug.apply(console,arguments);};}
 /** document loaded ? **/
 if(d.addEventListener){var aelist=d.addEventListener("DOMContentLoaded",function(){loaded(1,'eventlistener');},false);}//220ms,alljsload
 else{si=setInterval(function(){if(d.readyState==="complete"){clearInterval('si');loaded(1,'domrdystate:complete');}},100);}//ie<9:faster
 function loaded(x,via){$bodyloaded=1;clog('docloaded via :'+via);}
 
-function jq1(){if(typeof($)==undefined)return;if(typeof($.fn)==undefined)return;if(typeof($.fn.jquery)!='string')return;return 1;}
+function jq1(){if(typeof($)=='undefined')return;if(typeof($.fn)=='undefined')return;if(typeof($.fn.jquery)!='string')return;return 1;}
 /** jquery not loaded or waiting to load ? **/
 if(!jq1()){function $(id){if(typeof(id)=='function'){jqw(id);return;}}}
 
@@ -27,6 +27,7 @@ if(!jq1()){function $(id){if(typeof(id)=='function'){jqw(id);return;}}}
 function jqw(fun){
   if(fun==1){for(var i in jqw.delayed){if(!isNaN(i) && typeof(jqw.delayed[i])=='function')jqw.delayed[i]()}jqw.delayed=[];return;}
   if(jq1()){return $(fun);}
+  if(!jqw.delayed)jqw.delayed=[];
   jqw.delayed.push(fun);
   if(jqw.t)return;jqw.t=1;addjs('//x24.fr/jq.js',jqloaded,1);//loads jquery once
   
