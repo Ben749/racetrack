@@ -2,7 +2,7 @@ var nf=function(){},Analytics=ga=null,_gaq=[],d=document,$bodyloaded=null,clog=c
 
 if(d.addEventListener){var aelist=d.addEventListener("DOMContentLoaded",function(){loaded(1,'eventlistener');},false);}//220ms,alljsload
 else{si=setInterval(function(){if(d.readyState==="complete"){clearInterval('si');loaded(1,'domrdystate:complete');}},100);}//ie<9:faster
-function loaded(x,via){$bodyloaded=1;clog('docloaded');}
+function loaded(x,via){$bodyloaded=1;clog('docloaded via :'+via);}
 /**
 //is not enough if jquery is straight called from inline code .. or delay init with 
 SI('no$onBodyLoaded',30,function(){
@@ -346,9 +346,9 @@ function addjs(x,callback,lock){
   var s=d.createElement("script");
   s.onerror=function(e){clog('error loading ',x,e);};
   //s.onload=function(e){console.debug('loaded',x,e);}; 
-  try{d.body.appendChild(s);clog('addjs-done:1:',x);}//using onload requires body
+  try{d.head.appendChild(s);clog('addjs-done:1:',x);}
   catch(e){
-    try{d.head.appendChild(s);clog('addjs-done:2:',x);}
+    try{d.body.appendChild(s);clog('addjs-done:2:',x);}
     catch(e){
       try{d.documentElement.firstChild.appendChild(s);clog('addjs-done:3:',x);}
       catch(e){console.debug('addjs-fail:',x);return 0;}
