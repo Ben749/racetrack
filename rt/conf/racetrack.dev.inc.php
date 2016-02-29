@@ -16,3 +16,6 @@ register_shutdown_function(
     $e=error_get_last();if($e && $e['type']!=8){print_r($e);}$_ENV['errorshutdown']=1;
   }#displays 500 inline typo errors
 );
+
+header('Content-Type: text/html; charset=utf-8');#ie displays :#ï»¿ 
+ 
