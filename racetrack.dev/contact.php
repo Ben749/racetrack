@@ -1,4 +1,6 @@
 ﻿<?
+$_ENV['keyw']=$_ENV['desc']=$_ENV['titre']='racetrack :: contact';
+
 if($_SERVER["HTTP_X_FORWARDED_FOR"])redef('IP',$_SERVER["HTTP_X_FORWARDED_FOR"]);
 elseif($_SERVER["REMOTE_ADDR"])redef('IP',$_SERVER["REMOTE_ADDR"]);
 
@@ -42,6 +44,7 @@ switch($k){default:$but="Obtenir un complément d'information";break;}}
 $but=stripslashes($but);
 if($_GET['b2']){$but=str_replace('.',' ',$_GET['b2']);$b1=str_replace('.',' ',$_GET['b1']);}
 if(is_array($t2))$t2='';#
+
 require_once'header.c.php';
 noscript();?><center>
 

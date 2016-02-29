@@ -32,8 +32,6 @@ if(!Q)$f->R302('?1#');#Notice they are respectivelty cumulative with each other
 
 $_ENV['keyw']=$_ENV['desc']=$_ENV['titre']='racetrack ² - fast & easy php plug & play framework';
 
-/*set to defaults values if not set :Rem($_ENV['titre'],$def['titre']);*/
-
 $headermenu=$footermenu='';
 $headerLinks=$footerLinks=[];
 
