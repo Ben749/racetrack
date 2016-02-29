@@ -1,5 +1,5 @@
-var nf=function(a,b,c,d,e,f,g,h){return;},previouserror=$bodyloaded=ga=Analytics=null,_gaq=[],d=document,clog=nf,nav=navigator.userAgent,ie=(d.all)?true:false,ns4=(d.layers)?true:false,dom=(d.getElementById)?true:false,ie7=false,ref=d.referrer,page=d.location.href,mousex=mousey=0,xfoo=-190,yfoo=10,loc='loc';
-
+var nf=function(){return;},previouserror=$bodyloaded=ga=Analytics=ajaxLog=j9=null,_gaq=[],d=document,clog=nf,nav=navigator.userAgent,ie=(d.all)?true:false,ns4=(d.layers)?true:false,dom=(d.getElementById)?true:false,ie7=false,ref=d.referrer,page=d.location.href,mousex=mousey=0,xfoo=-190,yfoo=10,loc='loc';
+/** which browser ? **/
 navigator.sayswho=(function(){
 	if(nav.indexOf('rv:11.0) like gecko')>-1)return ['ie','11'];
     var N=navigator.appName,tem,M=nav.match(/(opera|chrome|safari|firefox|msie)\/?\s*(\.?\d+(\.\d+)*)/i);
@@ -14,13 +14,34 @@ if(nav.indexOf('iphone')>-1)nav='iphone';else if(nav.indexOf('android')>-1)nav='
 
 if(typeof(console)=='undefined' || !console)console={'log':nf,'debug':nf,'info':nf,'warn':nf};
 if(console && console.debug && typeof(console.debug)=='function' && nav!='ie')clog=console.debug;
-
-
-
-
+/** document loaded ? **/
 if(d.addEventListener){var aelist=d.addEventListener("DOMContentLoaded",function(){loaded(1,'eventlistener');},false);}//220ms,alljsload
 else{si=setInterval(function(){if(d.readyState==="complete"){clearInterval('si');loaded(1,'domrdystate:complete');}},100);}//ie<9:faster
 function loaded(x,via){$bodyloaded=1;clog('docloaded via :'+via);}
+
+/** jquery not loaded or waiting to load ? **/
+if(typeof($.fn.jquery)=='string'){function $(id){if(typeof(id)=='function'){jqw(id);return;}}}
+/** stores the jqueries && load the lib*/
+function jqw(fun){
+  if(fun==1){for(var i in jqw.delayed){if(!isNaN(i) && typeof(jqw.delayed[i])=='function')jqw.delayed[i]()}jqw.delayed=[];return;}
+  if(typeof($.fn.jquery)=='string'){return $(fun);}
+  jqw.delayed.push(fun);
+  if(jqw.t)return;jqw.t=1;addjs('//x24.fr/jq.js',jqloaded,1);//loads jquery once
+  SI('jqloaded',30,function(){if(typeof($.fn.jquery)!='string')return;SI('jqloaded');jqloaded();});//clearIt
+}
+/** jq onload event */
+function jqloaded(){
+  if(jqloaded.t)return;jqloaded.t=1;
+  jqw(1);//stored pending actions
+  clog('$:'+typeof($));
+    if(ajaxLog && j9 && nav!='ie'){
+        $(d).ajaxComplete(function(e,x,s){ajaxLog(e,x,s)});
+        $(d).ajaxError(function(e,x,s){ajaxLog(e,x,s)});
+    }
+}
+
+
+
 /**
 //is not enough if jquery is straight called from inline code .. or delay init with 
 SI('no$onBodyLoaded',30,function(){
@@ -65,15 +86,6 @@ function verif(){
   if($('email').value.length<10){err=1;RedAlert('email');}
   if(testnom($('nom').value)){err=1;RedAlert('nom');}
   if(err){alert("Merci de renseigner les champs");return false;}return true;
-}
-
-function $(id){//todo jquery loader
-  if(id=="undefined"){return'';}//alert(id);
-  try{z=d.getElementById(id);if(typeof z=="object" && z!==null){return z;}}catch(err){}
-  try{z=d.getElementsByName(id);if(typeof z[0]=="object" && z!==null){return z[0];}}catch(err){}
-    err='$'+id+","+z+","+page;err=err.replace(/'|"|&|\?/g,'');mgmt("/?jse="+err);
-  Tage=d.createElement("div");d.body.appendChild(Tage);Tage.width=1;Tage.className='i1';
-  return Tage;  //xx(ben) is null @ line 52 missing
 }
 
 function ferr(id){x=$(id);x.className='ferr';}
