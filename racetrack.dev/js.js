@@ -1,5 +1,22 @@
-var nf=function(a,b,c,d,e,f,g,h){return;},previouserror=$bodyloaded=ga=Analytics=null,_gaq=[],d=document,clog=nf,ie=(d.all)?true:false,ns4=(d.layers)?true:false,dom=(d.getElementById)?true:false,ie7=false,ref=d.referrer,page=d.location.href,mousex=mousey=0,xfoo=-190,yfoo=10,loc='loc';
-if(console && console.debug && typeof(console.debug)=='function')clog=console.debug;
+var nf=function(a,b,c,d,e,f,g,h){return;},previouserror=$bodyloaded=ga=Analytics=null,_gaq=[],d=document,clog=nf,nav=navigator.userAgent,ie=(d.all)?true:false,ns4=(d.layers)?true:false,dom=(d.getElementById)?true:false,ie7=false,ref=d.referrer,page=d.location.href,mousex=mousey=0,xfoo=-190,yfoo=10,loc='loc';
+
+navigator.sayswho=(function(){
+	if(nav.indexOf('rv:11.0) like gecko')>-1)return ['ie','11'];
+    var N=navigator.appName,tem,M=nav.match(/(opera|chrome|safari|firefox|msie)\/?\s*(\.?\d+(\.\d+)*)/i);
+    if(M && (tem=nav.match(/version\/([\.\d]+)/i))!= null)M[2]=tem[1];
+    M=M?[M[1],M[2]]:[N, navigator.appVersion,'-?'];return M;
+})();
+
+x=navigator.sayswho;if(x){nav=tolow(x[0]);nver=Math.ceil(x[1]);}
+
+if(nav.indexOf('%) ')>-1)j9=1;
+if(nav.indexOf('iphone')>-1)nav='iphone';else if(nav.indexOf('android')>-1)nav='android';else if(nav.indexOf('chrome')>-1)nav='chrome';else if(nav.indexOf('safari')>-1)nav='safari';else if(nav.indexOf('firefox')>-1)nav='firefox';else if(nav.indexOf('msie')>-1)nav='ie';else if(nav.indexOf('like gecko')>-1)nav='ie';
+
+if(typeof(console)=='undefined' || !console)console={'log':nf,'debug':nf,'info':nf,'warn':nf};
+if(console && console.debug && typeof(console.debug)=='function' && nav!='ie')clog=console.debug;
+
+
+
 
 if(d.addEventListener){var aelist=d.addEventListener("DOMContentLoaded",function(){loaded(1,'eventlistener');},false);}//220ms,alljsload
 else{si=setInterval(function(){if(d.readyState==="complete"){clearInterval('si');loaded(1,'domrdystate:complete');}},100);}//ie<9:faster
