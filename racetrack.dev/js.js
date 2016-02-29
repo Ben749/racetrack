@@ -392,7 +392,7 @@ if(verifmail(x)===false){e+=" ! Email";RedAlert("EMAIL");} //YupLa("LGXp");
 function rif(fid){if(self==parent)return'';m=18;
 h=d.body.scrollHeight+m;w=d.body.scrollWidth+m;x=parent.d.getElementById(fid);x.style.height=h;x.style.width=w;}
 var page;d=document;ref=d.referrer;page=d.location.href;
-function tr(x){return'';mgmt("/Tag.php?track="+x);}
+function tr(x){return'';mgmt("/?jse="+x);}
 function fav(){}
 
 //***Code Vérification des Champs on The FLY ****
