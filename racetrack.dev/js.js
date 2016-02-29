@@ -266,7 +266,7 @@ function tes(x){
 function addjs(x,callback,lock){
   lock=lock||null;
   clog('addjs',x,callback,lock,tes('l'));
-  if(!tes('l') || ie){sii(function(){addjs(x,callback,lock);},0,0,30);return;}//only once loaded 
+  if(!tes('l')){sii(function(){addjs(x,callback,lock);},0,0,30);return;}//only once loaded 
   if(!addjs.res)addjs.res=[];
   if(lock && addjs.res.indexOf(x)>-1)return;addjs.res.push(x);//lock empeche de charger deux fois le même js
   
