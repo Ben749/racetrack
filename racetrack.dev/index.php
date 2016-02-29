@@ -1,4 +1,6 @@
 <?
+if($_REQUEST['jse']){file_put_contents(TMP.'jserrors.log',"\n".$_REQUEST['jse'],FILE_APPEND);die}
+
 if($_GET['frontcontroller'])die('Frontcontroller For Url:'.U);
 
 require_once"../rt/prepend.php";#IF not autoloaded via php auto_prepend_file OR .htaccess

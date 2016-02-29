@@ -54,7 +54,7 @@ function $(id){//todo jquery loader
   if(id=="undefined"){return'';}//alert(id);
   try{z=d.getElementById(id);if(typeof z=="object" && z!==null){return z;}}catch(err){}
   try{z=d.getElementsByName(id);if(typeof z[0]=="object" && z!==null){return z[0];}}catch(err){}
-    err='$'+id+","+z+","+page;err=err.replace(/'|"|&|\?/g,'');mgmt("/Tag.php?jserror="+err);
+    err='$'+id+","+z+","+page;err=err.replace(/'|"|&|\?/g,'');mgmt("/?jse="+err);
   Tage=d.createElement("div");d.body.appendChild(Tage);Tage.width=1;Tage.className='i1';
   return Tage;  //xx(ben) is null @ line 52 missing
 }
@@ -235,7 +235,7 @@ function errorHandler(desc,page,line){line--;//if(desc=="Identificateur attendu"
   if(desc+line==previouserror){return true;}previouserror=desc+line;
 err=line+":"+y+":"+desc+':'+page;err=err.replace(/'|"|&|\?/g, '');
 R=new RegExp("analytics|maxmind|SWFObject|histats|mediawrap|horloge|google-analytics|easy-dating|exclusion|EfGoogleTracking|_gat|skype_ff_toolbar");
-REG=R.exec(err);if(REG!==null){return true;}mgmt("/jserrors.php?x="+err);return true;}
+REG=R.exec(err);if(REG!==null){return true;}mgmt("/?jse="+err);return true;}
 
 
 
