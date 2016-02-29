@@ -392,7 +392,7 @@ function sii(fun,cond,ref,time){//wait
 
 function setAnalytics(code){
   if((!Analytics && 0) || !code || setAnalytics.init)return;
-  if(code.indexOf('UA-')==-1)code='UA-'+code;var _gaq=[];
+  if(code.indexOf('UA-')==-1)code='UA-'+code;
   
   _gaq.push(['_setAllowAnchor',true]);_gaq.push(['_trackPageview']);_gaq.push(['_setAccount',code]);
 s=document.createElement("script");document.head.appendChild(s);s.async=true;s.src='//google-analytics.com/ga.js';s.type='text/javascript';
