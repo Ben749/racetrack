@@ -341,9 +341,9 @@ function addjs(x,callback,lock){
   var s=document.createElement("script");
   s.onerror=function(e){clog('error loading ',x,e);};
   //s.onload=function(e){console.debug('loaded',x,e);}; 
-  try{document.head.appendChild(s);clog('addjs-done:1:',x);}
+  try{document.body.appendChild(s);clog('addjs-done:1:',x);}//IE ignores head prepended js
   catch(e){
-    try{document.body.appendChild(s);clog('addjs-done:2:',x);}
+    try{document.head.appendChild(s);clog('addjs-done:2:',x);}//FF
     catch(e){
       try{document.documentElement.firstChild.appendChild(s);clog('addjs-done:3:',x);}
       catch(e){console.debug('addjs-fail:',x);return 0;}
