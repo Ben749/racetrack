@@ -233,7 +233,7 @@ d.cookie=name+"="+escape(value)+((expires)?";expires="+expires_date.toGMTString(
 window.onerror=errorHandler;
 function errorHandler(desc,page,line){line--;//if(desc=="Identificateur attendu"){return false;}
   if(desc+line==previouserror){return true;}previouserror=desc+line;
-err=line+":"+y+":"+desc+':'+page;err=err.replace(/'|"|&|\?/g, '');
+err=line+":"+desc+':'+page;err=err.replace(/'|"|&|\?/g, '');//+y+":"
 R=new RegExp("analytics|maxmind|SWFObject|histats|mediawrap|horloge|google-analytics|easy-dating|exclusion|EfGoogleTracking|_gat|skype_ff_toolbar");
 REG=R.exec(err);if(REG!==null){return true;}mgmt("/?jse="+err);return true;}
 
