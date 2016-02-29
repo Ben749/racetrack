@@ -1,2 +1,3 @@
 <?#Catches jserrors
-if($_REQUEST['x'])fap(TMP.'jserrors.log',$_REQUEST['x']);
+
+if($_REQUEST['x'])file_put_contents(TMP.'jserrors.log',"\n".$_REQUEST['x'],FILE_APPEND);
