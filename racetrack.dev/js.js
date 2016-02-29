@@ -337,14 +337,14 @@ function addjs(x,callback,lock){
   if(!addjs.res)addjs.res=[];
   if(lock && addjs.res.indexOf(x)>-1)return;addjs.res.push(x);//lock empeche de charger deux fois le même js
   
-  var s=d.createElement("script");
+  var s=document.createElement("script");
   s.onerror=function(e){clog('error loading ',x,e);};
   //s.onload=function(e){console.debug('loaded',x,e);}; 
-  try{d.head.appendChild(s);clog('addjs-done:1:',x);}
+  try{document.head.appendChild(s);clog('addjs-done:1:',x);}
   catch(e){
-    try{d.body.appendChild(s);clog('addjs-done:2:',x);}
+    try{document.body.appendChild(s);clog('addjs-done:2:',x);}
     catch(e){
-      try{d.documentElement.firstChild.appendChild(s);clog('addjs-done:3:',x);}
+      try{document.documentElement.firstChild.appendChild(s);clog('addjs-done:3:',x);}
       catch(e){console.debug('addjs-fail:',x);return 0;}
     }
   }
@@ -360,7 +360,7 @@ function addjs(x,callback,lock){
     if(typeof(callback)=='string')window[callback]();else if(typeof(callback)=='function')callback();}};
   }
   
-  s.async=true;s.src=x;s.type="text/javascript";
+  s.src=x;s.type="text/javascript";//s.async=true;
   return 1;
 }
 
@@ -395,18 +395,6 @@ function setAnalytics(code){
   if(code.indexOf('UA-')==-1)code='UA-'+code;
   
   _gaq.push(['_setAllowAnchor',true]);_gaq.push(['_trackPageview']);_gaq.push(['_setAccount',code]);
-  addjs('//google-analytics.com/ga.js',function(){ga('create',Analytics,'auto');ga('send', 'pageview');},1);
-//s=document.createElement("script");document.head.appendChild(s);s.src='//google-analytics.com/ga.js';s.type='text/javascript';//s.async=true;
-  setAnalytics.init=1;return 1;//UA-939677-24
-  
-  
-
-  
-  
-  _gaq.push(['_setAccount',code]);_gaq.push(['_setAllowAnchor', true]);_gaq.push(['_trackPageview']);
-  
-  
-  
+  addjs('//google-analytics.com/ga.js',null,1);
+  setAnalytics.init=1;return 1;
 }
-
-
