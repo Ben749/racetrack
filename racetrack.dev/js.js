@@ -19,15 +19,18 @@ if(d.addEventListener){var aelist=d.addEventListener("DOMContentLoaded",function
 else{si=setInterval(function(){if(d.readyState==="complete"){clearInterval('si');loaded(1,'domrdystate:complete');}},100);}//ie<9:faster
 function loaded(x,via){$bodyloaded=1;clog('docloaded via :'+via);}
 
+function jq1(){if(typeof($.fn)==undefined || typeof($.fn.jquery)!='string')return;return 1;}
 /** jquery not loaded or waiting to load ? **/
-if(typeof($.fn.jquery)=='string'){function $(id){if(typeof(id)=='function'){jqw(id);return;}}}
+if(!jq1()){function $(id){if(typeof(id)=='function'){jqw(id);return;}}}
+
 /** stores the jqueries && load the lib*/
 function jqw(fun){
   if(fun==1){for(var i in jqw.delayed){if(!isNaN(i) && typeof(jqw.delayed[i])=='function')jqw.delayed[i]()}jqw.delayed=[];return;}
-  if(typeof($.fn.jquery)=='string'){return $(fun);}
+  if(jq1()){return $(fun);}
   jqw.delayed.push(fun);
   if(jqw.t)return;jqw.t=1;addjs('//x24.fr/jq.js',jqloaded,1);//loads jquery once
-  SI('jqloaded',30,function(){if(typeof($.fn.jquery)!='string')return;SI('jqloaded');jqloaded();});//clearIt
+  
+  SI('jqloaded',30,function(){if(!jq1())return;SI('jqloaded');jqloaded();});//clearIt
 }
 /** jq onload event */
 function jqloaded(){
