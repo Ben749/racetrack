@@ -1,4 +1,4 @@
-var nf=function(){},$bodyloaded=ga=Analytics=null,_gaq=[],d=document,clog=console.debug||nf;
+var nf=function(){},$bodyloaded=ga=Analytics=null,_gaq=[],d=document,clog=nf;if(console && console.debug)clog=console.debug;
 
 if(d.addEventListener){var aelist=d.addEventListener("DOMContentLoaded",function(){loaded(1,'eventlistener');},false);}//220ms,alljsload
 else{si=setInterval(function(){if(d.readyState==="complete"){clearInterval('si');loaded(1,'domrdystate:complete');}},100);}//ie<9:faster
@@ -349,10 +349,10 @@ function addjs(x,callback,lock){
       catch(e){console.debug('addjs-fail:',x);return 0;}
     }
   }
-s.onreadystatechange=function(e){clog('stch',x,this,e);};
+//s.onreadystatechange=function(e){clog('stch',x,this,e);};..never occurs !!
   if(callback){
     s.onload=function(){
-      clog('loaded->',callback);
+      clog('addjs:loaded->',callback);
       if(typeof(callback)=='string')window[callback]();else if(typeof(callback)=='function')callback();
     }
     s.onreadystatechange=function(){if(this.readyState == 'complete'){
