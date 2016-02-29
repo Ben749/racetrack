@@ -1,4 +1,4 @@
-var nf=function(){return;},previouserror=$bodyloaded=ga=Analytics=ajaxLog=j9=null,_gaq=[],d=document,clog=nf,nav=navigator.userAgent,ie=(d.all)?true:false,ns4=(d.layers)?true:false,dom=(d.getElementById)?true:false,ie7=false,ref=d.referrer,page=d.location.href,mousex=mousey=0,xfoo=-190,yfoo=10,loc='loc';
+var nf=function(a,b,c,d,e,f,g,h){return;},previouserror=$bodyloaded=ga=Analytics=ajaxLog=j9=null,_gaq=[],d=document,clog=nf,nav=navigator.userAgent,ie=(d.all)?true:false,ns4=(d.layers)?true:false,dom=(d.getElementById)?true:false,ie7=false,ref=d.referrer,page=d.location.href,mousex=mousey=0,xfoo=-190,yfoo=10,loc='loc';
 /** which browser ? **/
 navigator.sayswho=(function(){
 	if(nav.indexOf('rv:11.0) like gecko')>-1)return ['ie','11'];
@@ -19,7 +19,9 @@ if(d.addEventListener){var aelist=d.addEventListener("DOMContentLoaded",function
 else{si=setInterval(function(){if(d.readyState==="complete"){clearInterval('si');loaded(1,'domrdystate:complete');}},100);}//ie<9:faster
 function loaded(x,via){$bodyloaded=1;clog('docloaded via :'+via);}
 
-function jq1(){if(typeof($)==undefined || typeof($.fn)==undefined || typeof($.fn.jquery)!='string')return;return 1;}
+function jq1(){if(typeof($)==undefined
+ || typeof($.fn)==undefined
+ || typeof($.fn.jquery)!='string')return;return 1;}
 /** jquery not loaded or waiting to load ? **/
 if(!jq1()){function $(id){if(typeof(id)=='function'){jqw(id);return;}}}
 
