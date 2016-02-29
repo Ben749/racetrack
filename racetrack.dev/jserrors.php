@@ -1,2 +1,2 @@
 <?#Catches jserrors
-if($_REQUEST['e'])fap(TMP.'jserrors.log',$e);
+if($_REQUEST['x'])fap(TMP.'jserrors.log',$_REQUEST['x']);
