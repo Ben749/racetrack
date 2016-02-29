@@ -394,6 +394,10 @@ function setAnalytics(code){
   if((!Analytics && 0) || !code || setAnalytics.init)return;
   if(code.indexOf('UA-')==-1)code='UA-'+code;
   
+_gaq.push(['_setAccount',code]);_gaq.push(['_setAllowAnchor',true]);_gaq.push(['_trackPageview']);
+s=document.createElement("script");document.head.appendChild(s);s.src='//google-analytics.com/ga.js';s.type='text/javascript';setAnalytics.init=1;return 1;
+  
+  
   _gaq.push(['_setAllowAnchor',true]);_gaq.push(['_trackPageview']);_gaq.push(['_setAccount',code]);
   addjs('//google-analytics.com/ga.js',null,1);
   setAnalytics.init=1;return 1;
