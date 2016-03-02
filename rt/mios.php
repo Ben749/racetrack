@@ -4,9 +4,8 @@ if(!function_exists('wmail')){
   function wmail($to,$sub,$msg,$head=null,$params=null){#global mail wrapper
     static $done=[];
     $sign=md5(implode(get_defined_vars()));
-    if(in_array($sign,$done))return 1;#no recursion
+    if(in_array($sign,$done))return 1;$done[]=$sign;#no recursion
     #if(function_exists('bmail'))$x=Bmail($sub,$msg,$to,$head);if($x)return 1;#$de=SENDEREMAIL1,$smtp='',$verif=1,$delay=1}#infinite recursion becuz of it's failsafe here ...
-    header('Amios'.__line__.': '.$to);
     return mail($to,$sub,$msg,$head,$params);
   }
 }

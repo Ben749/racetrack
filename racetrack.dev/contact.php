@@ -26,6 +26,7 @@ if($_POST){
 	
   $as=$de=$email;/*email renseigné dans form*/
   $msg=$ms;
+  
   $x=wmail($mail,$subject,$msg,$headers);
   if(!$x){$subject.=' (try#2 -> bmail)';$x=Bmail(compact('subject','msg','mail','de','as'));}
   if(!$x){
