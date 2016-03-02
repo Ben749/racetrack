@@ -7,10 +7,10 @@ elseif($_SERVER["REMOTE_ADDR"])redef('IP',$_SERVER["REMOTE_ADDR"]);
 new fun;
 extract($_GET);
 
-$dest="contact@x24.fr";$exp='contact@x24.fr';
-$subject=" - formulaire contact";
+$dest=$exp=ADMINEMAIL;
+$subject="Racetrack Contact Form";
 $s="\r\n";$headers="MIME-Version: 1.0{$s}Content-type: text/html; charset=iso-8859-1{$s}From:$de{$s}Return-Path:$de{$s}Reply-To:$de{$s}";
-#$x=wmail('ben@a74.fr','subject','msg',$headers);
+#$x=wmail(ADMINEMAIL,'subject','msg',$headers);
 
 if($_POST){
   $_POST=Array_Map('stripslashes',$_POST);extract($_POST);
@@ -30,10 +30,10 @@ if($_POST){
   $x=wmail($mail,$subject,$msg,$headers);
   if(!$x)$x=Bmail(compact('subject','msg','mail','de','as'));
   if(!$x){
-    $subject.=' (1 via '.$email.')';$de='contact@ecdist.com';
+    $subject.=' (1 via '.$email.')';$de=ADMINEMAIL;
     $x=Bmail(compact('subject','msg','mail','de','as'));
   }
-  if(!$x)Bmail("Contakt2 via $email ",$ms,$dest,0,'contact@ecdist.com');
+  if(!$x)Bmail("Contakt2 via $email ",$ms,$dest,0,ADMINEMAIL);
   die("<script>location.href='?ok=1';</script><a href='?ok=1'>Merci pour votre message</a>");
 }
 

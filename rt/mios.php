@@ -2,7 +2,8 @@
 #1:wrappers: allows intercepting calls to essential standard functions : mail, headers, redirections ..
 if(!function_exists('wmail')){
   function wmail($to,$sub,$msg,$head=null,$params=null){#global mail wrapper
-    #if(function_exists('bmail')){Bmail($sub,$msg,$to,$head);#$de=SENDEREMAIL1,$smtp='',$verif=1,$delay=1}
+    if(function_exists('bmail'))$x=Bmail($sub,$msg,$to,$head);
+    if($x)return 1;#$de=SENDEREMAIL1,$smtp='',$verif=1,$delay=1}
     return mail($to,$sub,$msg,$head,$params);
   }
 }

@@ -33,9 +33,8 @@ elseif($a['vars']){$x=param($a['vars']);extract($x);}#on extrait toutes ces vari
    $k='logs';defin($k,$a[$k],${$k},TMP.'logs/');#fichiers de logs, debug
     $k='l2,dbp';defin($k,$a['l2'],$l2,TMP.'logs/');#logs level 2=debug
     $k='erlogs';defin($k,$a[$k],${$k},LOGS.'er.logs');#debug special avec bcp I/O
-
-  $k='adminemail';defin($k,$a[$k],${$k},'ben@a74.fr');
-  $k='senderemail1';defin($k,$a[$k],${$k},'admin@a74.fr');
+  $k='adminemail';defin($k,$a[$k],${$k},'');
+  $k='senderemail1';defin($k,$a[$k],${$k},'');
   $k='homesite';defin($k,$a[$k],${$k},'x-x-x');
 
 if(!isset($_ENV['c']['sql']))#si elles ne sont pas définies, alors on va tenter les valeurs du htaccess
