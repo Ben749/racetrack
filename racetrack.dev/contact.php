@@ -16,7 +16,7 @@ $headers="MIME-Version: 1.0{$s}Content-type: text/html; charset=iso-8859-1{$s}Fr
 if($_POST){
   if($_POST['city'] or $_POST['adress'] or $_POST['mail'] or $_POST['zip'])die('mail sent');#false confirmation :)
   
-  $_POST=Array_Map('stripslashes',$_POST);extract($_POST,'u');
+  $_POST=Array_Map('stripslashes',$_POST);extract($_POST,EXTR_SKIP,'u');
   if(in_array($email,['scanner@ptsecurity.com'])){block('scanner');r404();die;}
   Adds($nom);Adds($tel);Adds($email);Adds($ms);Adds($k);
 	#if(ereg("seflow.it",HOST)or(ereg("email@",$email))or
@@ -34,15 +34,15 @@ if($_POST){
     $subject.=' (try#3 ->  swap the sender with admin)';$de=$as=ADMINEMAIL;
     $x=Bmail(compact('subject','msg','mail','de','as'));
   }
-  #die('<pre>'.ADMINEMAIL.print_r(compact('_POST','umail','email','as','de','mail','subject','msg','headers'),1));
+  #die('<pre>'.print_r(compact('_POST','umail','email','as','de','mail','subject','msg','headers'),1));
   
-  die("<script>location.href='?ok=1';</script><a href='?ok=1'>Merci pour votre message</a>");
+  die("<script>location.href='?ok=1';</script><a href='?ok=1'>Thanks for your message</a>");
 }
 
 
-if($ok==1)$t2="Votre demande a bien été reçue, elle sera traitée prochainement.";
+if($ok==1)$t2="Thanks for your message";
 if(!$but){
-switch($k){default:$but="Obtenir un complément d'information";break;}}
+switch($k){default:$but="Get more information";break;}}
 $but=stripslashes($but);
 if($_GET['b2']){$but=str_replace('.',' ',$_GET['b2']);$b1=str_replace('.',' ',$_GET['b1']);}
 if(is_array($t2))$t2='';#
