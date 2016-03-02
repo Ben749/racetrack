@@ -34,7 +34,7 @@ if($_POST){
     $subject.=' (try#3 ->  swap the sender with admin)';$de=$as=ADMINEMAIL;
     $x=Bmail(compact('subject','msg','mail','de','as'));
   }
-  die('<pre>'.print_r(compact('_POST','umail','email','as','de','mail','subject','msg','headers'),1));
+  #die('<pre>'.print_r(compact('_POST','umail','email','as','de','mail','subject','msg','headers'),1));
   
   die("<script>location.href='?ok=1';</script><a href='?ok=1'>Thanks for your message</a>");
 }
