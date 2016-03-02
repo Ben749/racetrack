@@ -7,10 +7,10 @@ elseif($_SERVER["REMOTE_ADDR"])redef('IP',$_SERVER["REMOTE_ADDR"]);
 new fun;
 extract($_GET);
 
-$dest=$exp=ADMINEMAIL;
+$mail=$from=$dest=$de=$exp=ADMINEMAIL;##not as permitted sender .... dns records
 $subject="Racetrack Contact Form";
 
-$s="\r\n";$headers="MIME-Version: 1.0{$s}Content-type: text/html; charset=iso-8859-1{$s}From:$de{$s}Return-Path:$de{$s}Reply-To:$de{$s}";
+$s="\r\n";$headers="MIME-Version: 1.0{$s}Content-type: text/html; charset=iso-8859-1{$s}From:$from{$s}Return-Path:$from{$s}Reply-To:$from{$s}";
 #$x=wmail(ADMINEMAIL,'subject','msg',$headers);
 
 if($_POST){
@@ -24,17 +24,15 @@ if($_POST){
   $ms="Nom: $nom ($tel) <br>email : $email<br>$city<br>$message<br><br>--- $k $t".IP;$ms=str_replace('"','',$ms);#if(admin)die($ms);
   #SQL5("insert into ben.contact(`nom`,`tel`,`email`,`message`,`key`,`date`)values(\"$nom\",\"$tel\",\"$email\",\"$ms\",\"$k\",NOW())");
 	
-  $de=$exp;#not as permitted sender .... dns records
-  $as=$email;
-  
-  $msg=$ms;$mail=$dest;
+  $as=$de=$email;/*email renseigné dans form*/
+  $msg=$ms;
   $x=wmail($mail,$subject,$msg,$headers);
-  if(!$x)$x=Bmail(compact('subject','msg','mail','de','as'));
+  if(!$x){$subject.=' (try#2 -> bmail)';$x=Bmail(compact('subject','msg','mail','de','as'));}
   if(!$x){
-    $subject.=' (1 via '.$email.')';$de=ADMINEMAIL;
+    $subject.=' (try#3 ->  swap the sender with admin)';$de=$as=ADMINEMAIL;
     $x=Bmail(compact('subject','msg','mail','de','as'));
   }
-  if(!$x)Bmail("Contakt2 via $email ",$ms,$dest,0,ADMINEMAIL);
+  #if(!$x)Bmail("Contakt3 via $email ",$ms,$dest,0,ADMINEMAIL);
   die("<script>location.href='?ok=1';</script><a href='?ok=1'>Merci pour votre message</a>");
 }
 
