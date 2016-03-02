@@ -9,20 +9,21 @@ extract($_GET);
 
 $mail=$from=$dest=$de=$exp=ADMINEMAIL;##not as permitted sender .... dns records
 $subject="Racetrack Contact Form";
-
-$s="\r\n";$headers="MIME-Version: 1.0{$s}Content-type: text/html; charset=iso-8859-1{$s}From:$from{$s}Return-Path:$from{$s}Reply-To:$from{$s}";
+$s="\r\n";
+$headers="MIME-Version: 1.0{$s}Content-type: text/html; charset=iso-8859-1{$s}From:$from{$s}Return-Path:$from{$s}Reply-To:$from{$s}";
 #$x=wmail(ADMINEMAIL,'subject','msg',$headers);
 
 if($_POST){
-  $_POST=Array_Map('stripslashes',$_POST);extract($_POST);
+  if($_POST['city'] or $_POST['adress'] or $_POST['mail'] or $_POST['zip'])die('mail sent');#false confirmation :)
+  
+  $_POST=Array_Map('stripslashes',$_POST);extract($_POST,'u');
   if(in_array($email,['scanner@ptsecurity.com'])){block('scanner');r404();die;}
+  Adds($nom);Adds($tel);Adds($email);Adds($ms);Adds($k);
 	#if(ereg("seflow.it",HOST)or(ereg("email@",$email))or
   if(Preg_Match("#(\[url|href)=#i",$message))r404();
-  Adds($nom);Adds($tel);Adds($email);Adds($ms);Adds($k);
-#if(!is_file($fil."x")){FAP(fhits,$k."x");Touch($fil."x");}  
-#sinon déroulement normal du script
+
   $ms="Nom: $nom ($tel) <br>email : $email<br>$city<br>$message<br><br>--- $k $t".IP;$ms=str_replace('"','',$ms);#if(admin)die($ms);
-  #SQL5("insert into ben.contact(`nom`,`tel`,`email`,`message`,`key`,`date`)values(\"$nom\",\"$tel\",\"$email\",\"$ms\",\"$k\",NOW())");
+ #SQL5("insert into ben.contact(`nom`,`tel`,`email`,`message`,`key`,`date`)values(\"$nom\",\"$tel\",\"$email\",\"$ms\",\"$k\",NOW())");
 	
   $as=$de=$email;/*email renseigné dans form*/
   $msg=$ms;
@@ -33,7 +34,8 @@ if($_POST){
     $subject.=' (try#3 ->  swap the sender with admin)';$de=$as=ADMINEMAIL;
     $x=Bmail(compact('subject','msg','mail','de','as'));
   }
-  #if(!$x)Bmail("Contakt3 via $email ",$ms,$dest,0,ADMINEMAIL);
+  #die('<pre>'.ADMINEMAIL.print_r(compact('_POST','umail','email','as','de','mail','subject','msg','headers'),1));
+  
   die("<script>location.href='?ok=1';</script><a href='?ok=1'>Merci pour votre message</a>");
 }
 
