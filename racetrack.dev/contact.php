@@ -8,9 +8,7 @@ new fun;
 extract($_GET);
 
 $mail=$from=$dest=$de=$exp=ADMINEMAIL;##not as permitted sender .... dns records
-$subject="Racetrack Contact Form";
-$s="\r\n";
-$headers="MIME-Version: 1.0{$s}Content-type: text/html; charset=iso-8859-1{$s}From:$from{$s}Return-Path:$from{$s}Reply-To:$from{$s}";
+$subject="Racetrack Contact Form";$s="\r\n";
 #$x=wmail(ADMINEMAIL,'subject','msg',$headers);
 
 if($_POST){
@@ -26,6 +24,8 @@ if($_POST){
  #SQL5("insert into ben.contact(`nom`,`tel`,`email`,`message`,`key`,`date`)values(\"$nom\",\"$tel\",\"$email\",\"$ms\",\"$k\",NOW())");
 	
   $as=$de=$email;/*email renseigné dans form*/
+  $headers="MIME-Version: 1.0{$s}Content-type: text/html; charset=iso-8859-1{$s}From:$as{$s}Return-Path:$as{$s}Reply-To:$as{$s}";
+  
   $msg=$ms;
   
   $x=wmail($mail,$subject,$msg,$headers);
@@ -34,7 +34,7 @@ if($_POST){
     $subject.=' (try#3 ->  swap the sender with admin)';$de=$as=ADMINEMAIL;
     $x=Bmail(compact('subject','msg','mail','de','as'));
   }
-  #die('<pre>'.print_r(compact('_POST','umail','email','as','de','mail','subject','msg','headers'),1));
+  die('<pre>'.print_r(compact('_POST','umail','email','as','de','mail','subject','msg','headers'),1));
   
   die("<script>location.href='?ok=1';</script><a href='?ok=1'>Thanks for your message</a>");
 }
