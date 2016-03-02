@@ -5,7 +5,9 @@ $ga='UA-111-1';#analytics code
 $DB='ciel';#DR.'adm/3.s3db';#replace this value now !!
 $def=array('titre'=>'racetrack default title','desc'=>'desc default','keyw'=>'default keywords');
 
-$a=array_merge($a,['adminemail'=>'contact@x24.fr','senderemail1'=>'contact@x24.fr','rt'=>$a['root'].'rt/','tmp'=>$a['root'].'tmp/'];
+$a=array_merge($a,
+['adminemail'=>'contact@x24.fr','senderemail1'=>'contact@x24.fr','rt'=>$a['root'].'rt/','tmp'=>$a['root'].'tmp/']
+);
 
 rem($a['preload'],'0=autoloader.php&1=r304.php');
 $a['preload']='0=autoloader.php&1=r304.php';
