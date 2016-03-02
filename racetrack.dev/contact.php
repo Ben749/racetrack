@@ -9,6 +9,7 @@ extract($_GET);
 
 $dest=$exp=ADMINEMAIL;
 $subject="Racetrack Contact Form";
+
 $s="\r\n";$headers="MIME-Version: 1.0{$s}Content-type: text/html; charset=iso-8859-1{$s}From:$de{$s}Return-Path:$de{$s}Reply-To:$de{$s}";
 #$x=wmail(ADMINEMAIL,'subject','msg',$headers);
 
