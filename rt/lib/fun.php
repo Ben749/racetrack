@@ -4,6 +4,20 @@ class fun{}#__call if in array_map -> require_once then return \$name($args[0]
 #$def=array('re','noperf','np');foreach($def as $v)if(!isset($_GET[$v]))$_GET[$v]=null;#patch
 $def=array('noperf');foreach($def as $v)if(!isset($_ENV[$v]))$_ENV[$v]=null;
 
+function dc($dir=''){
+if($dir and strpos($dir,-1)!='/')$dir.='/';
+  $x=glob($dir.'*.php');$out=[];
+  $negativePatterns=['.c.php','.inc.php','todo','index.php'];
+  foreach($x as $v){
+    foreach($negativePatterns as $negativePattern){
+      if(strpos($v,$negativePattern)!==FALSE)Continue 2;
+    }
+    if($dir)$v=str_replace($dir,'',$v);
+    $out[]="<a href='$v'>".str_replace('.php','',$v)."</a>";
+  }
+  return $out;
+}
+
 function dbt($prune=1){
   #Db(SU,$_ENV['dbe']['db'].$_ENV['yt']['mots']."@".GT('l'.__LINE__),'time');
   $bt=debug_backtrace();

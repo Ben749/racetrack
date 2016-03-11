@@ -1,11 +1,13 @@
 <?
-new fun;$f=$_GET['f'];
-if(!$f){
-  $choices="<a href='?f=articles'>articles</a> <a href='?f=blocks'>Content blocks</a>";
+$f=new f;new fun;
+
+$fi=$_GET['fi'];
+if(!$fi){
+  $choices="Choices : <a href='?fi=articles'>articles</a> <a href='?fi=blocks'>Content blocks</a>";
   goto html;
 }
 
-$fi='contents/'.$f.'.json';$x=fgc($fi);if(!$x)$x=['post'=>[],'maxid'=>0];
+$file='contents/'.$fi.'.json';$x=fgc($file);if(!$x)$x=['post'=>[],'maxid'=>0];
 
 if($_POST){
 #<p>&nbsp;</p>
@@ -21,27 +23,31 @@ if($_POST){
   $ve=var_export($_POST,1);
 #reduce produced string
   $ve=str_replace(["array (\n  ",",\n  "],['[',','],$ve);if(substr($ve,-3)==",\n)")$ve=str_replace(",\n)",']',$ve);
-  fpc('contents/ve.'.$f.'.'.$id.'-.php','<?$x='.$ve.';');
+  fpc('contents/ve.'.$fi.'.'.$id.'-.php','<?$x='.$ve.';');
   
-  fpc($fi,$x);
-  r302("?f=$f&id=$id#saved");
+  fpc($file,$x);
+  r302("?fi=$fi&id=$id#saved");
 }
 
 $id=$title=$content='';$id=$_GET['id'];
-if($id && $x['post'] && $x['post'][$id])extract($x['post'][$id]);
+if($id and $x['post'] and $x['post'][$id])extract($x['post'][$id]);
 #print_r(compact('id','x'));
 edit:
-foreach($x['post'] as $k=>$t){$options.="<option value='$k'>".$t['title']."</option>";$list[]="<a href='?f=$f&id=$k'>".$t['title']."</a>";}
+foreach($x['post'] as $k=>$t){$options.="<option value='$k'>".$t['title']."</option>";$list[]="<a href='?fi=$fi&id=$k'>".$t['title']."</a>";}
 
 html:?>
 <html><head><title>racetrack editor - <?=$title?></title>
 <link rel="shortcut icon" type="image/png" href="/favicon.ico">
 <link href="/style.css" rel="stylesheet"><link href="/?css" rel="stylesheet">
 <script src="//cdn.ckeditor.com/4.5.7/standard<?#basic|full?>/ckeditor.js"></script>
-<title>Racetrack :: editor</title></head><body><?if($choices)kill('<div class=w50><div class=w50>Choices:'.$choices.'</div></div>');?>
+<title>Racetrack :: editor</title></head><body>
+<div class=w50><div class=w50>
+<?
+echo implode(' - ',$f->dc());
+if($choices)kill(''.$choices.'</div></div>');?>
 
 
-<div class=w50><div class=w50><form method=post action='?f=<?=$f?>'>
+<form method=post action='?fi=<?=$fi?>'>
 <input name=id type=hidden value='<?=$id?>'>
 Title : <input name=title value='<?=$title?>'><?=($url)?" - url : <a target=1 href='/$url'>$url</a> ":''?>
 Contents : <?=($error)?"/!\ $error /!\\":''?><textarea id=ckeditor name=content><?=$content?></textarea>
@@ -49,7 +55,7 @@ background : <input name=bg value='<?=$bg?>'>
 categories : <input name=cat value='<?=$cat?>'>
 <br><input type=submit value=go accesskey=s style='width:99%;'>
 </form>
-List : <a href='?'>Create new post</a> - <?=implode(' - ',$list)?> - <select onchange="location.href='?f=<?=$f?>&id='+this.value" class=select2><option>Select or create new post</option><?=$options?></select></div></div>
+List : <a href='?'>Create new post</a> - <?=implode(' - ',$list)?> - <select onchange="location.href='?fi=<?=$fi?>&id='+this.value" class=select2><option>Select or create new post</option><?=$options?></select></div></div>
 
 <script>var sel='';
 window.onload=function(){

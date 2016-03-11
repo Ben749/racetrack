@@ -41,18 +41,12 @@ $f->gt('timer');
 
 require_once'header.c.php';
 
-$x=glob('*.php');
-$negativePatterns=['.c.php','.inc.php','todo','index.php'];
-foreach($x as $v){
-  foreach($negativePatterns as $negativePattern){
-    if(strpos($v,$negativePattern)!==FALSE)Continue 2;
-  }
-  $out.=" - <a href='$v'>".str_replace('.php','',$v)."</a>";
-}
+$out.=' '. implode(' - ',$f->dc());
+
 $out.="\n - <a href='/test/'>Tests ( password protected ) </a>";
 $out.="\n - <a href='/adm/'>admin ( password protected ) </a>";
 
-require_once'adm/contents/ve.blocks.1-.php';$MainPageContents=$x['content'];
+require_once'adm/contents/ve.blocks.1-.php';$MainPageContents=trim($x['content']);
 #echo"<video class='nomob' poster='' id='bgvid' loop autoplay><source src='//x24.fr/".$vid".?1' type='video/mp4'></video>";
 
 /* articles */
