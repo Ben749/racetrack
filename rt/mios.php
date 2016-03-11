@@ -41,7 +41,7 @@ if(is_file(PATHANOT)){
       if($time>$max)$max=$time;
     }unset($time);
     #die('-'.$max.'/'.($max-time()));
-    require_once('lib/304.php');r304($max);
+    require_once('lib/r304.php');r304($max);
   }
 }
 

@@ -241,7 +241,7 @@ function sqlInjection($x,$mode='spe2'){#return $mode;
 shutdown('kill');#ces fonctions peuvent se cumuler - on peut en définir plusieurs, s'interrompent définitivement si un die ou exit à l'intérieur
 function kill($x=''){
     static $t,$db;
-    if(e(',die,kill,r302,r301',1)||$t)die;#évite toute recursion et la place en fonction de die final, notez que plusieurs fonctions de shutdown peuvent être définies l'appel à la fonction permet de stocker un context backtrace
+    if(e(',die,kill,r302,r301',1) oR $t)die;#évite toute recursion et la place en fonction de die final, notez que plusieurs fonctions de shutdown peuvent être définies l'appel à la fonction permet de stocker un context backtrace
     
     if(isset($GLOBALS['mysqlconnection'])){mysqli_close($GLOBALS['mysqlconnection']);unset($GLOBALS['mysqlconnection']);}
     

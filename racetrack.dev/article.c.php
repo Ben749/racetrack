@@ -3,7 +3,7 @@
 $name='custom var : $name injected';
 function customfunction($a,$b){$args=get_defined_vars();return'customfunction:done:arguments:'.json_encode($args);}
 
-$x=FGC('adm/editor.json');
+$x=FGC('adm/contents/articles.json');
 if($t=$x['post'][$id]){
 
   if(U!=$t['url'])r302('/'.$t['url'].'#unique');

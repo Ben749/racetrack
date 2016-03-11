@@ -42,15 +42,21 @@ $f->gt('timer');
 require_once'header.c.php';
 
 $x=glob('*.php');
+$negativePatterns=['.c.php','.inc.php','todo','index.php'];
 foreach($x as $v){
-  if(strpos($v,'.c.php')!==false or strpos($v,'.inc.php')!==false || strpos($v,'todo')!==false || strpos($v,'router')!==false)continue;
-  $out.="\n - <a href='$v'>".str_replace('.php','',$v)."</a>";
+  foreach($negativePatterns as $negativePattern){
+    if(strpos($v,$negativePattern)!==FALSE)Continue 2;
+  }
+  $out.=" - <a href='$v'>".str_replace('.php','',$v)."</a>";
 }
 $out.="\n - <a href='/test/'>Tests ( password protected ) </a>";
 $out.="\n - <a href='/adm/'>admin ( password protected ) </a>";
 
-/* artices */
-$f='adm/editor.json';
+require_once'adm/contents/ve.blocks.1-.php';$MainPageContents=$x['content'];
+#echo"<video class='nomob' poster='' id='bgvid' loop autoplay><source src='//x24.fr/".$vid".?1' type='video/mp4'></video>";
+
+/* articles */
+$f='adm/contents/articles.json';
 if(is_file($f)){
   $x=FGC($f);$z=[];
   foreach($x['post'] as $k=>$t){#
@@ -70,11 +76,13 @@ $out.= $articlesList;
 $vidz=['Night-Traffic.mp4','Fish-Tank.mp4','Ideas.mp4','Coder.mp4','PC-Typing.mp4'];
 shuffle($vidz);$vid=end($vidz);
 ?>
-<video class='nomob' poster='' id="bgvid" loop autoplay><source src="//x24.fr/<?=$vid?>?1" type="video/mp4"></video>
-
 <a href="https://github.com/Ben749/racetrack"><img style="position: fixed; top: 0; left: 0; border: 0;" src="//x24.fr/forkme_left_orange_ff7600.png" alt="Fork me on GitHub" ></a>
+
+<pre><?=$MainPageContents?>
+
+Directory contents :<?=$out;#='CWD : '.CWD?></pre>
+
 <div id=top><?#="bg : ".$bg.$bgs?></div><div id=bot></div>
-<pre>Racetrack demo home : directory contents : <?=$out;#='CWD : '.CWD?></pre>
 <?require_once'footer.c.php';die;?>
 
 
