@@ -17,7 +17,7 @@ $f->gt();#loads the gettime
 #new fun;#ok with autoloader -- fine :)
 
 #supposed "mvain controller" : any 404 rewriting goes here with RS=404
-if($_GET['e']==404)require_once'router.php';
+if($_GET['e']==404)require_once'router.c.php';
 #Installation : put in localhost, rename example.inc.php to 127.inc.php ( first digit of localhost )
 #Assume your web root is : C:\!web or change it in this configuration file
 switch(Q){

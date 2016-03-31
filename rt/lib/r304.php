@@ -1,7 +1,7 @@
 <?
 class r304{}
 function r304($x){
-  if(defined(J10) && J10)return;
+  if(defined(J10) and J10)return;
 #if($_SERVER['REMOTE_ADDR']=='82.244.25.233')file_put_contents('/z/'.time().'.ser',print_r($_SERVER,1));#array_merge(compact('v','date'),['server'=> print_r($_SERVER,1)
 
 
@@ -16,7 +16,7 @@ function r304($x){
   
   while($v>$now)$v-=86000;
   #  if(!$v || !is_numeric($v))$v=$now;
-  if(!is_numeric($v) || $v>$now){
+  if(!is_numeric($v) oR $v>$now){
     db('bad expiration: '.SU);header('Afmtime: '.$v,1);return;
   }#1432307270  can't accept this
   $date=gmdate('D, j M Y H:i:s',$v).' GMT';#die;
