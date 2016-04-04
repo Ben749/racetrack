@@ -1490,3 +1490,25 @@ function mysqlesc(&$x){#
   return $x;
 }
 
+function pretitle($n=0){/* Basic stylesheet & title for quick & dirty scripts */
+  ob_start();echo"<link rel=stylesheet href='rt.css'><title>".preg_replace("~[^a-z0-9 ]~i",' ',U)."</title><pre id=pre>";
+}
+
+function mkdirs($file,$finalDir=''){/**creates recursive missing directories as copying, moving, creating some file**/
+  $dirs=explode('/',$file);$filename=array_pop($dirs);$directories=$finalDir.implode('/',$dirs);
+  if(is_dir($directories))return 1;
+  foreach($dirs as $dir){$finalDir.=$dir.'/';if(!is_dir($finalDir))mkdir($finalDir);}
+}
+
+function out($x,$logFile=null){global $out;if(is_array($x))$x=json_encode($x);echo $x;$out.=$x;if($logFile)file_put_contents($logFile,$x,FILE_APPEND);}$out='';#real time dumping script to file, cumulates echo && logfile -- when you cant pipe a cron to a logfile, or need having separate logfiles, knowing exactly where you script is -- allows to kill it later ..
+
+
+
+
+
+
+
+
+
+
+
