@@ -1,16 +1,18 @@
 <?
 #$f=new f;echo $f->pretitle();
 new fun;
-if(AJAX)die("{\"success\":true,\"qs\":\"".Q."\"}");#fake ajax responses :)
+if(AJAX){
+  if($_GET['prevStep']=='billing')die("{\"success\":true,\"qs\":\"".Q."\",\"contents\":\"<legend>Shipping Methods :</legend>\\nFree shipping : <input id='s_method_freeshipping_freeshipping' type=checkbox>\\nShipping Method #2 : <input id='s_method_owebiashipping1_gls' type=checkbox>\\n<div id=shipping-method-buttons-container><button>SaveShipping</button></div>\"}");
+
+  die("{\"success\":true,\"qs\":\"".Q."\"}");#fake ajax responses :)
+}
 
 echo'<html><head>'.str_replace('<pre','</head><body>',pretitle());
-?><button onclick='startIntervals()'>Start Intervals</button>
+?> - JS intervals and Promises test area
+
+<button onclick='startIntervals()'>Start Intervals</button>
 <fieldset id=form>billing:use_for_shipping_yes : <input id='billing-use_for_shipping_yes' type=checkbox>
-<fieldset class=sp-methods><legend>Shipping Methods :</legend>
-Free shipping : <input id='s_method_freeshipping_freeshipping' type=checkbox>
-Shipping Method #2 : <input id='s_method_owebiashipping1_gls' type=checkbox>
-<div id=shipping-method-buttons-container><button>SaveShipping</button></div>
-</fieldset>
+<fieldset class=sp-methods>to be replaced</fieldset>
 p_method_accountpayment: <input id='p_method_accountpayment' type=checkbox>
 I do agree to the terms and conditions: <input id='agreement-1' type=checkbox>
 
@@ -25,7 +27,11 @@ function startIntervals(){
   listenAjax();
   
 sii(function(){
-  billing={save:function(){$.get('?prevStep=billing');}};
+  billing={save:function(){
+    $.get('?prevStep=billing').success(function(e){
+    json=JSON.parse(e);
+    $('.sp-methods').html(json.contents);
+  });}};
   shippingMethod={saveWithColissimo:function(){$.get('?saveShippingMethod');}};
   payment={save:function(){$.get('?prevStep=payment');}};
   review={save:function(){$.get('?confirm');}};//Post action for the complete form  
