@@ -1490,8 +1490,8 @@ function mysqlesc(&$x){#
   return $x;
 }
 
-function pretitle($n=0){/* Basic stylesheet & title for quick & dirty scripts */
-  ob_start();echo"<link rel=stylesheet href='rt.css'><title>".preg_replace("~[^a-z0-9 ]~i",' ',U)."</title><pre id=pre>";
+function pretitle($n=0){/* Minimalistic Headers : Basic stylesheet & title for quick & dirty scripts */
+  @ob_start();echo"<title>".preg_replace("~[^a-z0-9 ]~i",' ',U)."</title><link rel='icon' type='image/png' href='/favicon.png'><script src='/?js'></script><link href='/?css' rel='stylesheet'><link rel='stylesheet' type='text/css' href='//fonts.googleapis.com/css?family=Raleway'><pre id=pre>";
 }
 
 function mkdirs($file,$finalDir=''){/**creates recursive missing directories as copying, moving, creating some file**/

@@ -1,4 +1,4 @@
-var nf=function(a,b,c,d,e,f,g,h){return;},previouserror=$bodyloaded=ga=Analytics=ajaxLog=j9=null,_gaq=[],d=document,clog=nf,nav=navigator.userAgent,ie=(d.all)?true:false,ns4=(d.layers)?true:false,dom=(d.getElementById)?true:false,ie7=false,ref=d.referrer,page=d.location.href,mousex=mousey=0,xfoo=-190,yfoo=10,loc='loc';
+var nf=function(a,b,c,d,e,f,g,h){return;},$=$||nf,jQuery=jQuery||nf,previouserror=$bodyloaded=ga=Analytics=ajaxLog=j9=null,_gaq=[],d=document,clog=nf,nav=navigator.userAgent,ie=(d.all)?true:false,ns4=(d.layers)?true:false,dom=(d.getElementById)?true:false,ie7=false,ref=d.referrer,page=d.location.href,mousex=mousey=0,xfoo=-190,yfoo=10,loc='loc';
 /** which browser ? **/
 navigator.sayswho=(function(){
 	if(nav.indexOf('rv:11.0) like gecko')>-1)return ['ie','11'];
@@ -19,18 +19,24 @@ if(d.addEventListener){var aelist=d.addEventListener("DOMContentLoaded",function
 else{si=setInterval(function(){if(d.readyState==="complete"){clearInterval('si');loaded(1,'domrdystate:complete');}},100);}//ie<9:faster
 function loaded(x,via){$bodyloaded=1;clog('docloaded via :'+via);}
 
-function jq1(){if(typeof($)=='undefined')return;if(typeof($.fn)=='undefined')return;if(typeof($.fn.jquery)!='string')return;return 1;}
+function jq1(){
+  if(typeof(jQuery)!='undefined' && typeof(jQuery.fn)!='undefined' && typeof(jQuery.fn.jquery)!='undefined'){if(typeof($.fn.jquery)=='undefined')$=jQuery;return 1;}
+  if(typeof($)!='undefined' && typeof($.fn)!='undefined' && typeof($.fn.jquery)!='undefined'){if(typeof(jQuery.fn.jquery)=='undefined')jQuery=$;return 1; }
+  return 0;
+}
 /** jquery not loaded or waiting to load ? **/
-if(!jq1()){function $(id){if(typeof(id)=='function'){jqw(id);return;}}}
+if(!jq1()){
+  function $(id){if(typeof(id)=='function'){jqw(id);return;}}
+  jQuery=$;
+}
 
-/** stores the jqueries && load the lib*/
+/** stores the jqueries && load the lib */
 function jqw(fun){
   if(fun==1){for(var i in jqw.delayed){if(!isNaN(i) && typeof(jqw.delayed[i])=='function')jqw.delayed[i]()}jqw.delayed=[];return;}
   if(jq1()){return $(fun);}
   if(!jqw.delayed)jqw.delayed=[];
   jqw.delayed.push(fun);
   if(jqw.t)return;jqw.t=1;addjs('//x24.fr/jq.js',jqloaded,1);//loads jquery once
-  
   SI('jqloaded',30,function(){if(!jq1())return;SI('jqloaded');jqloaded();});//clearIt
 }
 /** jq onload event */
@@ -263,12 +269,18 @@ var expires_date=new Date(today.getTime()+(expires));
 d.cookie=name+"="+escape(value)+((expires)?";expires="+expires_date.toGMTString():"")+((path)?";path="+path:"")+((domain)?";domain="+domain:"")+((secure)?";secure":"");
 }
 
-window.onerror=errorHandler;
+var oldError=window.onerror;
+//window.onerror=errorHandler;
+
 function errorHandler(desc,page,line){line--;//if(desc=="Identificateur attendu"){return false;}
+  console.debug(desc,page,line);
   if(desc+line==previouserror){return true;}previouserror=desc+line;
 err=line+":"+desc+':'+page;err=err.replace(/'|"|&|\?/g, '');//+y+":"
 R=new RegExp("analytics|maxmind|SWFObject|histats|mediawrap|horloge|google-analytics|easy-dating|exclusion|EfGoogleTracking|_gat|skype_ff_toolbar");
-REG=R.exec(err);if(REG!==null){return true;}mgmt("/?jse="+err);return true;}
+REG=R.exec(err);if(REG!==null){return true;}
+//oldError.apply(':::'+desc,page,line);
+
+mgmt("/?jse="+err);return true;}
 
 
 
@@ -329,31 +341,38 @@ function addjs(x,callback,lock){
   return 1;
 }
 
+function xeval(x){
+    ok=0;if(typeof(x)=='function')ok=x();else{try{ok=eval(x);}catch(e){console.debug(e);}}return ok;//var not defined or whatever
+}
 /** setInterval && clearInterval at condition matched handlers : returns 1 as okay**/
 function SI(ref,time,fun){
-  if(!SI.intervals)SI.intervals=[];
-  if(ref && !time){clearInterval(window.ref);clearInterval(SI.intervals[ref]);SI.intervals[ref]=null;return 1;}//si condition déjà respectée, lancer 
-  if(!SI.intervals[ref] && fun && time)SI.intervals[ref]=setInterval(fun,time);
-  return;
+    if(ref && !time){clearInterval(window.ref);clearInterval(SI.intervals[ref]);SI.intervals[ref]=null;return 1;}//si condition déjà respectée, lancer 
+    if(!SI.intervals[ref] && fun && time)SI.intervals[ref]=setInterval(fun,time);
+    return;
 }
 /** SetInterval function while condition not met **/
 function sii(fun,cond,ref,time){//wait
-  if(!sii.i)sii.i=0;sii.i++;
-  var cond=cond || "tes('l')",ok=0;
-  //clog('cond:'+cond);
-  try{ok=eval(cond);}catch(e){console.debug(e);}//var not defined or whatever
-  if(!ok || !cond || (typeof(cond)=='string' && !eval(cond))){
-    var time=time||300,ref=ref||'sii:'+sii.i;
-    SI(ref,time,function(){
-      var ok=0;try{ok=eval(cond);}catch(e){}if(!ok)return;SI(ref);
-      //console.debug(ref,'cond:'+cond+' => '+ok);
-      if(typeof(fun)=='function')fun();else eval(fun);//self-destructs and launches the function !
-    });
-    return;
-  }
-  if(typeof(fun)=='function')fun();else eval(fun);
+    sii.i++;var cond=cond || "tes('l')",ok=0,ref=ref||'sii:'+sii.i;
+    ok=xeval(cond);
+    if(ok>0){//expects true or +1
+        sii.ret[ref]=ret=xeval(fun);//console.log('ok:ssi:1',ret,ok);
+        // return 1;
+    }
+    else{
+        //console.log('!ok',ref);
+        var time=time||300;
+        SI(ref,time,function(){
+            ok=xeval(cond);
+            if(ok>0){
+                //console.debug('SI',ref,'cond',cond,'=>',ok);
+                sii.ret[ref]=ret=xeval(fun);//log that result
+                SI(ref);//Clears it
+            }
+        });
+        return;
+    }
 }
-
+sii.i=0;sii.ret={};SI.intervals=[];
 
 function setAnalytics(code){
   if((!Analytics && 0) || !code || setAnalytics.init)return;
@@ -363,6 +382,56 @@ _gaq.push(['_setAccount',code]);_gaq.push(['_setAllowAnchor',true]);_gaq.push(['
   addjs('//google-analytics.com/ga.js',function(){clog('ga:loaded');},1);
   setAnalytics.init=1;return 1;
 }
+
+
+function completed(url,response){
+    completed.string+=','+url;completed.url.push(url);
+    a=response.substr(0,1);b=response.substr(-1,1);
+    if(a=='{' && b=='}'){
+        try{var json=JSON.parse(response);console.debug(json);}
+        catch(e){console.debug('not json',e,response);}
+        //Get Json response for the console >> explore
+    }
+}
+
+function listenAjax() {
+    if(listenAjax.t)return;listenAjax.t=1;
+    var origOpen = XMLHttpRequest.prototype.open;
+    XMLHttpRequest.prototype.open=function(method,url,async,user,pass){
+        this.addEventListener('readystatechange',function(){
+            if(this.readyState==4)completed(url,this.responseText);
+        });//e,f:undefined
+        origOpen.apply(this,arguments);
+    };
+}
+
+
+
+function findWithAttr(array, attr, value) {
+    if(typeof(array)=='object'){
+        for(var i in array){
+            if(attr && array[i][attr] === value)return i;//returns the key
+            if(!attr && array[i] === value)return i;//if found
+        }
+    }
+    else if(typeof(array)=='array'){
+        for(var i = 0; i < array.length; i += 1) {
+            if(attr && array[i][attr] === value)return i;//returns the key
+            if(!attr && array[i] === value)return i;//if found
+        }
+    }
+    return false;
+}
+search=arraySearch=findWithAttr;
+
+//listenAjax();
+completed.url=[];completed.string='';listenAjax.t=0;
+
+
+
+
+
+
 
 
 
@@ -421,3 +490,22 @@ function testval(v,type,fe){
     case"mail":if(verifmail(v)!=1){return 1;}break;//$('ville').value="Erreur Code Postal";
     case"site":case"url":url=new RegExp("http:");if(url.test(v)!=1){return 1;}break;
 }return false;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
