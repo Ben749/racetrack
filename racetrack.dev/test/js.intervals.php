@@ -28,9 +28,9 @@ sii(function(){
   billing={save:function(){$.get('?prevStep=billing');}};
   shippingMethod={saveWithColissimo:function(){$.get('?saveShippingMethod');}};
   payment={save:function(){$.get('?prevStep=payment');}};
-  review={save:function(){$.get('?confirm');}};//Post action for the complete form
-  
-  return'billing set';},1,'ante2',500);//waits 0.5s to set the fake loaded object from some json  
+  review={save:function(){$.get('?confirm');}};//Post action for the complete form  
+  return'billing set';},1,'ante2',500);
+//waits 0.5s to set the fake loaded object from some json  
   
 $(function(){//waits for jquery to be loaded
   

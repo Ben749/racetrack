@@ -64,7 +64,8 @@ input,textarea{color:#00D}
 #bgvid{width:auto;height:112%;
 position:fixed;top:50%;left:50%;transform:translateX(-50%) translateY(-50%);min-width:100%;min-height:100%;background-size:cover;transition:1s opacity;z-index:-100;}
 
-
+button{background:#55F;}
+button:hover{background:#FF5;}
 
 
 
