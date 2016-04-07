@@ -48,7 +48,7 @@ if(is_file(PATHANOT)){
 $shutdown=[];
 register_shutdown_function(function(){
   global $noshutdown,$anotations;
-  if($noshutdown || args(',nofun',1))return;#for media thumbnails dynamic generation
+  if($noshutdown or args(',nofun',1))return;#for media thumbnails dynamic generation
   if(args(',headerssentcheck',1)){
     if(headers_sent($file,$line))wmail('error@x24.fr','headers sent',SU."\n".$file.':'.$line);#404 - normal car ob_get_clean
     else{
@@ -69,6 +69,8 @@ function shutdown($x=null,$top=0){
   global $shutdown;
   if(!is_array($shutdown))$shutdown=[];
   if($x===1){#fired once but allows other functions to be fired & allows second pass, third pass etc...   
+    if($unlinks and is_array($unlinks))foreach($unlinks as $file)unlink($file);$unlinks=null;#files to unlink, like lockfile($generated);
+  
     $shutdown=array_filter($shutdown);
     if(!count($shutdown))return;
     #print_r($shutdown);die;

@@ -1502,6 +1502,11 @@ function mkdirs($file,$finalDir=''){/**creates recursive missing directories as 
 
 function out($x,$logFile=null){global $out;if(is_array($x))$x=json_encode($x);echo $x;$out.=$x;if($logFile)file_put_contents($logFile,$x,FILE_APPEND);}$out='';#real time dumping script to file, cumulates echo && logfile -- when you cant pipe a cron to a logfile, or need having separate logfiles, knowing exactly where you script is -- allows to kill it later ..
 
+$unlinks=[];
+function lockfile($f){global $unlinks;
+  if(substr($f,0,1)!='/'){$cwd=getcwd();$f=$cwd.'/'.$f;}#from the script for reference
+  if(is_file($f))kill("locked $f");touch($f);$unlinks[]=$f;
+}
 
 
 
