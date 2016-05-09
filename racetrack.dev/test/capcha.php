@@ -1,4 +1,4 @@
-<?
+<?die;
 /** 
 https://openclassrooms.com/courses/les-captchas-anti-bot
 
@@ -16,10 +16,9 @@ $img = imagecreate($largeur, $hauteur);
 $blanc = imagecolorallocate($img, 255, 255, 255);
 $noir = imagecolorallocate($img, 0, 0, 0);
 imagepng($img);imagedestroy($img);
-
 */
 function emailConfirmationLink($email){#or inserted_ic $id
-  =md5($email);
+  #=md5($email);
 }
 function image($mot){
   $size = 32;
@@ -36,5 +35,19 @@ function image($mot){
 }
 
 imagettftext($img, $size, 0,$marge,$hauteur+$marge, $noir, './smartie.ttf', $mot);
-
+?>
 <label for="captcha">Recopiez le mot : <img src="captcha.php" alt="Captcha" /></label>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

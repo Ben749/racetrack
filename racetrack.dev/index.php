@@ -21,13 +21,24 @@ if($_GET['e']==404)require_once'router.c.php';
 #Installation : put in localhost, rename example.inc.php to 127.inc.php ( first digit of localhost )
 #Assume your web root is : C:\!web or change it in this configuration file
 switch(Q){
-case'css':
+  case'style':
 $f->r304(['style.css']);
 $f->h('css');
 echo"body{margin:auto;color:#000;font:16px Raleway;}
 .button{cursor:pointer;}.button:hover{background:#000;color:#FFF;border:2px dashed #0D0;}";readfile('style.css');die;#or readfile multiples css
-case'js':$f->r304(['js.js']);$f->h('js');readfile('js.js');die;#echo"document.write('js loaded');";die;
+  case'js':$f->r304(['js.js']);$f->h('js');readfile('js.js');die;#echo"document.write('js loaded');";die;
 }
+
+if($files=$_GET['css'] or $files=$_GET['js']){
+  $type=($_GET['js'])?'js':'css';
+  $files=explode(',',$files);
+  foreach($files as &$file)$file.='.'.$type;unset($file);
+  r304($files);#based on each file in collection
+  $f->h($type);
+  foreach($files as $file)if(is_file($file)){echo"\n/*}$file{*/\n";readfile($file);}
+  die;
+}
+
 #if(!Q)$f->R302('?putssomequerystringwhenNotSet');
 if(stripos(U,'index.php')!==false)$f->R302('./?#index');
 if(!Q)$f->R302('?1#');#Notice they are respectivelty cumulative with each other
