@@ -1508,6 +1508,25 @@ function lockfile($f){global $unlinks;
   if(is_file($f))kill("locked $f");touch($f);$unlinks[]=$f;
 }
 
+function Array2QS($a){#simple array only : todo : extends for multidimensionnal
+  $qs='?';
+  foreach($a as $k=>$v)$qs.="&$k=$v";
+  return $qs;
+}
+
+function Qs2Array($qs=''){
+  $params=[];$qs=trim(str_replace('?','&',$qs),'& ');$qs=explode('&',$qs);
+  foreach($qs as $kw){if(!$kw)continue;list($k,$v)=explode('=',$kw);$params[$k]=$v;}
+  return $params;
+}
+
+function Params2b64($params){
+  amr('utf8_encode',$params);#if utf8 file, or utf8 string, don't have to encode i
+  $params=json_encode($params);
+  return base64_encode($params);
+}
+
+function b642Params($b64){return json_decode(base64_decode($b64),1);}
 
 
 
